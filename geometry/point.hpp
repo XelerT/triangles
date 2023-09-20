@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include "../include/utils.hpp"
 
 namespace geometry
@@ -7,14 +8,19 @@ namespace geometry
         class point_t
         {
                 public:
-                        char name_[MAX_POINT_NAME_LENGTH] = {};
+                        char name[MAX_POINT_NAME_LENGTH] = {};
                         
                         double x = NAN;
                         double y = NAN;
                         double z = NAN;
 
                         point_t () = default;
-                        point_t (const point_t &src) {}
+                        point_t (const point_t &src_)
+                        {
+                                x = src_.x;
+                                y = src_.y;
+                                z = src_.z;
+                        };
                         point_t (const double x_, const double y_, const double z_)
                         {
                                 x = x_;
@@ -24,17 +30,17 @@ namespace geometry
 
                         void print_point ()
                         {
-                                std::cout << "point " << name_ << " is ("  <<
+                                std::cout << "point " << name << " is ("  <<
                                                          x << ", " <<  y   <<
                                                          ", " << z << ")\n";
                         }
 
-                        STATUSES get_status ()
+                        STATUSES get_status () const 
                         {
-                                if (x != NAN && y != NAN && z != NAN)
+                                if (!std::isnan(x) && !std::isnan(y) && !std::isnan(z))
                                         return VALID;
                                 else 
                                         return INVALID;
                         }
-        }
+        };
 }

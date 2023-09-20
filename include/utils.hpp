@@ -1,12 +1,14 @@
 #pragma once
 
-enum STATUSES {
+#include <cstdint>
+
+typedef enum STATUSES {
         INVALID,
         VALID       
 } STATUSES;
 
-enum ERRORS {
+typedef enum ERRORS {
         INVALID_POINT = 0xBADA46
-};
+} ERRORS;
 
 const uint8_t MAX_POINT_NAME_LENGTH = 8;

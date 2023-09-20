@@ -1,4 +1,8 @@
-#include "vector.h"
+#pragma once
+
+#include <cmath>
+
+#include "vector.hpp"
 
 namespace geometry
 {
@@ -16,20 +20,28 @@ namespace geometry
 
                 public:
                         line_t () = default;
-                        line_t (const line_t &src) {}
+                        line_t (const line_t &src_)
+                        {
+                                x_coeff = src_.x_coeff;
+                                x0 = src_.x0;
+                                y_coeff = src_.y_coeff;
+                                y0 = src_.y0;
+                                z_coeff = src_.z_coeff;
+                                z0 = src_.z0;
+                        };
                         line_t (const vector_t &guide_vector_, const point_t &line_point_)
                         {
                                 if (line_point_.get_status() == INVALID)
-                                        ERROR_EXIT(INVALID_POINT, "Point has invalid coordinates.");
+                                        throw std::runtime_error("Point has invalid coordinates to create line.");
 
                                 x_coeff = guide_vector_.x;
-                                x0      = line_point_.x0;
+                                x0      = line_point_.x;
 
                                 y_coeff = guide_vector_.y;
-                                y0      = line_point_.y0;
+                                y0      = line_point_.y;
 
                                 z_coeff = guide_vector_.z;
-                                z0      = line_point_.z0;
+                                z0      = line_point_.z;
                         };
 
                         ~line_t () {};
@@ -64,5 +76,5 @@ namespace geometry
 
                                 return point;
                         }
-        }
+        };
 }

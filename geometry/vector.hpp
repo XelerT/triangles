@@ -1,3 +1,6 @@
+#pragma once
+
+#include "../include/utils.hpp"
 #include "point.hpp"
 
 namespace geometry 
@@ -5,15 +8,15 @@ namespace geometry
         class vector_t
         {
                 public:
-                        double x = 0;
-                        double y = 0;
-                        double z = 0;
+                        double x = NAN;
+                        double y = NAN;
+                        double z = NAN;
 
                         vector_t () = default;
                         vector_t (const point_t &begin_, const point_t &end_)
                         {
-                                if (begin_.get_status() == INVALID || end.get_status() == INVALID)
-                                        ERROR_EXIT(INVALID_POINT, "Point has invalid coordinates.");
+                                if (begin_.get_status() == INVALID || end_.get_status() == INVALID)
+                                        throw std::runtime_error("Point has invalid coordinates to create vector.");
 
                                 x = end_.x - begin_.x;
                                 y = end_.y - begin_.y;
@@ -28,6 +31,6 @@ namespace geometry
                                                     y << ", " <<
                                                     z << "]\n";
                         }
-        }
+        };
 }
 
