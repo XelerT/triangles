@@ -1,0 +1,5 @@
+
+namespace geometry 
+{
+        class point();
+}
