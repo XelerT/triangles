@@ -18,7 +18,7 @@ bool double_is_equal_greater (const double a, const double b, const double thres
 bool double_is_greater (const double a, const double b, const double threshold)
 {
         if (doubles_are_equal(a, b, threshold))
-                return 0;
+                return false;
         else
                 return a > b;
 }
@@ -34,7 +34,7 @@ bool double_is_equal_lower (const double a, const double b, const double thresho
 bool double_is_lower (const double a, const double b, const double threshold)
 {
         if (doubles_are_equal(a, b, threshold))
-                return 0;
+                return false;
         else
                 return a < b;
 }

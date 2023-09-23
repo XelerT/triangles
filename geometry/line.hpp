@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include "vector.hpp"
+#include "../debug/debug.hpp"
 
 namespace geometry
 {
@@ -31,7 +32,7 @@ namespace geometry
                         };
                         line_t (const vector_t &guide_vector_, const point_t &line_point_)
                         {
-                                if (line_point_.get_status() == INVALID)
+                                if (!line_point_.is_valid())
                                         throw std::runtime_error("Point has invalid coordinates to create line.");
 
                                 x_coeff = guide_vector_.x;
@@ -42,6 +43,7 @@ namespace geometry
 
                                 z_coeff = guide_vector_.z;
                                 z0      = line_point_.z;
+                                $
                         };
 
                         ~line_t () {};
@@ -76,13 +78,35 @@ namespace geometry
                                                               get_y_value(parameter_),
                                                               get_z_value(parameter_)
                                                              };
-                                if (point->get_status() == INVALID) {
+                                if (!point->is_valid()) {
                                         delete point;
                                         std::cout << parameter_ << " is invalid for this line.\n"; // TODO: write error func
                                         return nullptr;
                                 }
 
                                 return point;
+                        }
+
+                        void print () 
+                        {
+                                std::cout << "x = " << x_coeff << "t + (" << x0 << ")\n";
+                                std::cout << "y = " << y_coeff << "t + (" << y0 << ")\n";
+                                std::cout << "z = " << z_coeff << "t + (" << z0 << ")\n";
+                        }
+
+                        void set (const vector_t &guide_vector_, const point_t &line_point_)
+                        {
+                                if (!line_point_.is_valid())
+                                        throw std::runtime_error("Point has invalid coordinates to create line.");
+
+                                x_coeff = guide_vector_.x;
+                                x0      = line_point_.x;
+
+                                y_coeff = guide_vector_.y;
+                                y0      = line_point_.y;
+
+                                z_coeff = guide_vector_.z;
+                                z0      = line_point_.z;
                         }
         };
 }

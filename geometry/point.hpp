@@ -28,19 +28,26 @@ namespace geometry
                                 z = z_;
                         };
 
-                        void print_point ()
+                        void print ()
                         {
                                 std::cout << "point " << name << " is ("  <<
                                                          x << ", " <<  y   <<
                                                          ", " << z << ")\n";
                         }
 
-                        STATUSES get_status () const 
+                        bool is_valid () const 
                         {
                                 if (!std::isnan(x) && !std::isnan(y) && !std::isnan(z))
-                                        return VALID;
+                                        return true;
                                 else 
-                                        return INVALID;
+                                        return false;
+                        }
+
+                        void set (const double x_, const double y_, const double z_)
+                        {
+                                x = x_;
+                                y = y_;
+                                z = z_;
                         }
         };
 }

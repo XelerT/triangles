@@ -35,16 +35,16 @@ namespace geometry
                                                    :
                                                    vec_d(point_, triangle_.get_vertex_a())
                         {
-                                if (point_.get_status() == INVALID)
+                                if (!point_.is_valid())
                                         throw std::runtime_error("Point has invalid coordinates"                \
                                                                  " to calculate distance to triangle.");
 
                                 vector_t segment_a_b = triangle_.get_segment_a_b();
                                 vector_t segment_a_c = triangle_.get_segment_a_c();
 
-                                // segment_a_b.print_vector();
-                                // segment_a_c.print_vector();     
-                                // vec_d.print_vector();
+                                // segment_a_b.print();
+                                // segment_a_c.print();     
+                                // vec_d.print();
 
                                 a = triangle_.get_segment_a_b().scalar_product(segment_a_b);
                                 b = triangle_.get_segment_a_b().scalar_product(segment_a_c);

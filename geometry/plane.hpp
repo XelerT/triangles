@@ -2,6 +2,7 @@
 
 #include "point.hpp"
 #include "vector.hpp"
+#include "../debug/debug.hpp"
 
 namespace geometry
 {
@@ -17,7 +18,7 @@ namespace geometry
                         plane_t () = default;
                         plane_t (const point_t &point_, const vector_t &first_vector_, const vector_t &seconvec_dtor_)
                         {
-                                if (point_.get_status() == INVALID)
+                                if (!point_.is_valid())
                                         throw std::runtime_error("Point has invalid coordinates to create plane.");
 
                                 A =   first_vector_.y * seconvec_dtor_.z - seconvec_dtor_.y * first_vector_.z;
@@ -53,6 +54,18 @@ namespace geometry
                                         return true;
                                 
                                 return false;
+                        }
+
+                        void set (const point_t &point_, const vector_t &first_vector_, const vector_t &seconvec_dtor_)
+                        {
+                                if (!point_.is_valid())
+                                        throw std::runtime_error("Point has invalid coordinates to create plane.");
+
+                                A =   first_vector_.y * seconvec_dtor_.z - seconvec_dtor_.y * first_vector_.z;
+                                B = -(first_vector_.x * seconvec_dtor_.z - seconvec_dtor_.x * first_vector_.z);
+                                C =   first_vector_.x * seconvec_dtor_.y - seconvec_dtor_.x * first_vector_.y;
+
+                                D = - A * point_.x - B * point_.y - C * point_.z; 
                         }
         };
 }
