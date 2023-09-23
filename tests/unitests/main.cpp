@@ -2,10 +2,13 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include "config.hpp"
+
 #include "point.hpp"
 #include "vector.hpp"
 #include "line.hpp"
 #include "triangle.hpp"
+#include "point_in_triangle.hpp"
 
 int main(int argc, char **argv)
 {

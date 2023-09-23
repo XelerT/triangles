@@ -46,22 +46,30 @@ namespace geometry
 
                         ~line_t () {};
 
-                        double get_x_value (const double parameter_)
+                        double get_x_value (const double parameter_) const
                         {
                                 return x_coeff * parameter_ + x0;
                         }
 
-                        double get_y_value (const double parameter_)
+                        double get_y_value (const double parameter_) const
                         {
                                 return y_coeff * parameter_ + y0;
                         }
 
-                        double get_z_value (const double parameter_)
+                        double get_z_value (const double parameter_) const
                         {
                                 return z_coeff * parameter_ + z0;
                         }
 
-                        point_t* get_point_on_line (const double parameter_)
+                        double get_x_coeff () const { return x_coeff; }
+                        double get_y_coeff () const { return y_coeff; }
+                        double get_z_coeff () const { return z_coeff; }
+
+                        double get_x0      () const { return x0; }
+                        double get_y0      () const { return y0; }
+                        double get_z0      () const { return z0; }
+
+                        point_t* get_point_on_line (const double parameter_) const
                         {
                                 point_t *point = new point_t {
                                                               get_x_value(parameter_),

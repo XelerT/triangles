@@ -1,11 +1,10 @@
 #pragma once
 
 #include "config.hpp"
-#include "../../geometry/geometry.hpp"
 
 using namespace geometry;
 
-TEST(line_test, init_class)
+TEST (line_test, init_class)
 {
         point_t begin {1, 0.25, 2.5};
         point_t end {5, 6.75, 10};
@@ -23,7 +22,8 @@ TEST(line_test, init_class)
         EXPECT_NEAR(point->z, 7.5 + 2.5,  THRESHOLD);
 }
 
-struct line_test : public testing::Test {
+struct line_test : public testing::Test
+{
         point_t begin {1, 0.25, 2.5};
         point_t end   {5, 6.75, 10};
 
@@ -34,7 +34,8 @@ struct line_test : public testing::Test {
         void TearDown() { delete line; }
 };
 
-class line_mock_t : public line_t {
+class line_mock_t : public line_t
+{
         public:                                
                 MOCK_METHOD(double, get_x_value, (const double));
                 MOCK_METHOD(double, get_y_value, (const double));
@@ -43,7 +44,8 @@ class line_mock_t : public line_t {
                 MOCK_METHOD(point_t*, get_point_on_line, (const double));
 };
 
-TEST(line_mock_t, mock_line_get_xyz_line_point) {
+TEST (line_mock_t, mock_line_get_xyz_line_point)
+{
         point_t begin {1, 0.25, 2.5};
         point_t end {5, 6.75, 10};
 

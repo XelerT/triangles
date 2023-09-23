@@ -1,0 +1,38 @@
+#include <iostream>
+
+#include "geometry.hpp"
+
+using namespace geometry;
+
+double find_line_plane_intersection_param (const line_t &line, const plane_t &plane)
+{
+        double numerator   = - (plane.get_A() * line.get_x0() + 
+                                plane.get_B() * line.get_y0() + 
+                                plane.get_C() * line.get_z0() + 
+                                plane.get_D()); 
+        double denominator = plane.get_A() * line.get_x_coeff() + 
+                             plane.get_B() * line.get_y_coeff() + 
+                             plane.get_C() * line.get_z_coeff();
+
+        return numerator / denominator;
+}
+
+point_t* find_line_plane_intersection (const line_t &line, const plane_t &plane)
+{
+        double param = find_line_plane_intersection_param(line, plane);
+        
+        return line.get_point_on_line(param);
+}
+
+bool point_is_inside_triangle (const triangle_t &triangle, const point_t &point)
+{
+        triangle_point_distance_t distance {triangle, point};
+        double s0_t0_sum = distance.s0 + distance.t0;
+        
+        if (double_is_lower(s0_t0_sum, 1, THRESHOLD))
+                if (double_is_equal_greater(distance.s0, 0, THRESHOLD))
+                        if (double_is_equal_greater(distance.t0, 0, THRESHOLD))
+                                return true;
+        
+        return false;
+}

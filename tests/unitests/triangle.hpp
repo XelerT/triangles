@@ -2,8 +2,6 @@
 
 #include "config.hpp"
 
-#include "../../geometry/geometry.hpp"
-
 using namespace geometry;
 
 // TEST(triangle_test, init_class)

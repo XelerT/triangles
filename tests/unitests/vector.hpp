@@ -1,7 +1,6 @@
 #pragma once
 
 #include "config.hpp"
-#include "../../geometry/geometry.hpp"
 
 using namespace geometry;
 

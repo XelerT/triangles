@@ -1,11 +1,10 @@
 #pragma once
 
 #include "config.hpp"
-#include "../../geometry/geometry.hpp"
 
 using namespace geometry;
 
-TEST(point_test, init_class)
+TEST (point_test, init_class)
 {
         point_t point {1, 0.25, -0.999};
 

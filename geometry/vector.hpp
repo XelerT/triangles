@@ -31,6 +31,11 @@ namespace geometry
                                                     y << ", " <<
                                                     z << "]\n";
                         }
+
+                        double scalar_product (vector_t &vec_)
+                        {
+                                return x * vec_.x + y * vec_.y + z * vec_.z;
+                        }
         };
 }
 

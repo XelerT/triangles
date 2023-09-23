@@ -1,5 +1,4 @@
 #pragma once
 
 #include <gtest/gtest.h>
-
-const double THRESHOLD = 0.e-5;
+#include "../../geometry/geometry.hpp"

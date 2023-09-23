@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../include/utils.hpp"
 #include "point.hpp"
 #include "line.hpp"
 #include "vector.hpp"
@@ -43,7 +44,7 @@ namespace geometry
                                 // set_triangle_plane();
                         };
 
-                        void print_sides () 
+                        void print_sides ()
                         {
                                 std::cout << "side a:\n\t";
                                 segment_a_b.print_vector();
@@ -54,7 +55,16 @@ namespace geometry
                                 std::cout << "side b:\n\t";
                                 segment_c_a.print_vector();
                         }
-                        
+
+                        point_t get_vertex_a () const { return vertex_a; }
+                        point_t get_vertex_b () const { return vertex_a; }
+                        point_t get_vertex_c () const { return vertex_a; }
+
+                        vector_t get_segment_a_b () const { return segment_a_b; }
+                        vector_t get_segment_b_c () const { return segment_b_c; }
+                        vector_t get_segment_c_a () const { return segment_c_a; }
+                        vector_t get_segment_a_c () const { return segment_a_c; }
+
                 private:
                         point_t vertex_a;
                         point_t vertex_b;
@@ -70,26 +80,6 @@ namespace geometry
                         vector_t segment_a_c;
 
                         plane_t plane;
-
-                        // void set_segments ()
-                        // {
-                        //         segment_a_b(vertex_a, vertex_b);
-                        //         segment_b_c(vertex_b, vertex_c);
-                        //         segment_c_a(vertex_c, vertex_a);
-                        //         segment_a_c(vertex_a, vertex_c);
-                        // }
-
-                        // void set_lines ()
-                        // {
-                        //         line_a_b(segment_a_b, vertex_a);
-                        //         line_b_c(segment_b_c, vertex_b);
-                        //         line_c_a(segment_c_a, vertex_c);
-                        // }
-
-                        // void set_triangle_plane ()
-                        // {
-                        //         plane(vertex_a, segment_a_b, segment_a_c);
-                        // }
         };
 }
 
