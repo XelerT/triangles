@@ -16,10 +16,10 @@ TEST (line_test, init_class)
         EXPECT_NEAR(line.get_y_value(1), 6.5 + 0.25, THRESHOLD);
         EXPECT_NEAR(line.get_z_value(1), 7.5 + 2.5,  THRESHOLD);
 
-        point_t *point = line.get_point_on_line(1);
-        EXPECT_NEAR(point->x, 4.0 + 1,    THRESHOLD);
-        EXPECT_NEAR(point->y, 6.5 + 0.25, THRESHOLD);
-        EXPECT_NEAR(point->z, 7.5 + 2.5,  THRESHOLD);
+        point_t point = line.get_point_on_line(1);
+        EXPECT_NEAR(point.x, 4.0 + 1,    THRESHOLD);
+        EXPECT_NEAR(point.y, 6.5 + 0.25, THRESHOLD);
+        EXPECT_NEAR(point.z, 7.5 + 2.5,  THRESHOLD);
 }
 
 struct line_test : public testing::Test
@@ -41,7 +41,7 @@ class line_mock_t : public line_t
                 MOCK_METHOD(double, get_y_value, (const double));
                 MOCK_METHOD(double, get_z_value, (const double));
                 
-                MOCK_METHOD(point_t*, get_point_on_line, (const double));
+                MOCK_METHOD(point_t, get_point_on_line, (const double));
 };
 
 TEST (line_mock_t, mock_line_get_xyz_line_point)

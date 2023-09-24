@@ -6,8 +6,6 @@
 #include "point.hpp"
 #include "triangle.hpp"
 
-#include "../debug/debug.hpp"
-
 namespace geometry
 {                                               // Triangle(s, t) = B + s * vec_e0 + t * vec_e1
         class triangle_point_distance_t         // Q(s, t) = (Triangle(s, t) - Point) ^ 2 =

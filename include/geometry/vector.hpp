@@ -1,8 +1,7 @@
 #pragma once
 
-#include "../include/utils.hpp"
+#include "../utils.hpp"
 #include "point.hpp"
-#include "../debug/debug.hpp"
 
 namespace geometry 
 {

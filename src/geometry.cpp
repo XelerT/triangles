@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "geometry.hpp"
+#include "../include/geometry/geometry.hpp"
 
 using namespace geometry;
 
@@ -18,7 +18,7 @@ double find_line_plane_intersection_param (const line_t &line, const plane_t &pl
         return numerator / denominator;
 }
 
-point_t* find_line_plane_intersection (const line_t &line, const plane_t &plane)
+point_t find_line_plane_intersection (const line_t &line, const plane_t &plane)
 {
         double param = find_line_plane_intersection_param(line, plane);
 
@@ -44,12 +44,11 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
 {
         bool intersect = false;
 
-        point_t *point = find_line_plane_intersection(line, plane);
-        if (point)
-                intersect = point_is_inside_triangle(triangle1, *point) &&
-                            point_is_inside_triangle(triangle2, *point);
+        point_t point = find_line_plane_intersection(line, plane);
+        if (point.is_valid())
+                intersect = point_is_inside_triangle(triangle1, point) &&
+                            point_is_inside_triangle(triangle2, point);
 
-        delete point;
         return intersect;
 }
 

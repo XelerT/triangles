@@ -21,7 +21,7 @@ if (GTESTS)
         include_directories(${GTEST_INCLUDE_DIRS})
 
         set(UNITESTS "unitests")
-        set(TEST_SRC_LIST tests/unitests/main.cpp geometry/geometry.cpp utils/compare.cpp)
+        set(TEST_SRC_LIST tests/unitests/main.cpp src/geometry.cpp utils/compare.cpp)
         set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++20 -lgtest -lgmock -pthread")
         
         add_executable(${UNITESTS} ${TEST_SRC_LIST})
@@ -29,7 +29,7 @@ else()
         message("Building triangles.")
         
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
-        set(SRC_LIST main.cpp geometry/geometry.cpp utils/compare.cpp)
+        set(SRC_LIST main.cpp src/geometry.cpp utils/compare.cpp src/triangles.cpp)
 
         add_executable(${PROJECT_NAME} ${SRC_LIST})
 endif()

@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cmath>
-#include "../include/utils.hpp"
+#include <iostream>
+
+#include "../utils.hpp"
 
 namespace geometry
 {
@@ -15,12 +17,6 @@ namespace geometry
                         double z = NAN;
 
                         point_t () = default;
-                        point_t (const point_t &src_)
-                        {
-                                x = src_.x;
-                                y = src_.y;
-                                z = src_.z;
-                        };
                         point_t (const double x_, const double y_, const double z_)
                         {
                                 x = x_;

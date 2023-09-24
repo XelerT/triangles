@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
+
+#include "compare.hpp"
 
 typedef enum STATUSES {
         INVALID,
@@ -11,11 +14,10 @@ typedef enum ERRORS {
         INVALID_POINT = 0xBADA46
 } ERRORS;
 
-const uint8_t MAX_POINT_NAME_LENGTH = 8;
-const double THRESHOLD = 1.e-5;
+const uint8_t N_DIMENSIONS            = 3;
+const uint8_t N_TRIANGLE_VERTEXES     = 3;
+const uint8_t MAX_POINT_NAME_LENGTH   = 8;
+const uint8_t MIN_N_TRIANGLES2INPUT   = 1;
+const size_t  MAX_N_TRIANGLES2INPUT   = 1'000'000;
 
-bool doubles_are_equal       (const double a, const double b, const double threshold);
-bool double_is_equal_greater (const double a, const double b, const double threshold);
-bool double_is_greater       (const double a, const double b, const double threshold);
-bool double_is_equal_lower   (const double a, const double b, const double threshold);
-bool double_is_lower         (const double a, const double b, const double threshold);
+const double  THRESHOLD = 1.e-5;

@@ -2,7 +2,6 @@
 
 #include "point.hpp"
 #include "vector.hpp"
-#include "../debug/debug.hpp"
 
 namespace geometry
 {

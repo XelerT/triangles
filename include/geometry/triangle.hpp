@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../include/utils.hpp"
+#include "../utils.hpp"
 #include "point.hpp"
 #include "line.hpp"
 #include "vector.hpp"
 #include "plane.hpp"
-#include "../debug/debug.hpp"
 
 namespace geometry
 {
@@ -40,7 +39,7 @@ namespace geometry
                                 plane.set(vertex_a, segment_a_b, segment_a_c);
                         };
 
-                        void print_sides ()
+                        void print ()
                         {
                                 std::cout << "side a:\n\t";
                                 segment_a_b.print();
