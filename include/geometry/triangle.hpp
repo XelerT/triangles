@@ -71,14 +71,14 @@ namespace geometry
                         point_t vertex_b;
                         point_t vertex_c;
 
-                        line_t line_a_b;
-                        line_t line_b_c;
-                        line_t line_c_a;
-
                         vector_t segment_a_b;
                         vector_t segment_b_c;
                         vector_t segment_c_a;
                         vector_t segment_a_c;
+                        
+                        line_t line_a_b;
+                        line_t line_b_c;
+                        line_t line_c_a;
 
                         plane_t plane;
         };

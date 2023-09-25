@@ -24,3 +24,10 @@ bool line_intersect_plane_in_triangles (const geometry::line_t     &line,
 bool triangles_intersect               (const geometry::triangle_t &triangle_one,
                                         const geometry::triangle_t &triangle_two
                                        );
+
+geometry::point_t find_line_triangle_lines_intersection (const geometry::line_t     &line,
+                                                         const geometry::triangle_t &triangle);      
+bool line_triangle_in_plane_intersect_in_triangles      (const geometry::line_t &line, 
+                                                         const geometry::triangle_t &triangle_owning_line,
+                                                         const geometry::triangle_t &triangle1,
+                                                         const geometry::triangle_t &triangle2);

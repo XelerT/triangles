@@ -30,7 +30,7 @@ namespace ui
                 n_coordinates = n_triangles * N_DIMENSIONS 
                                             * N_TRIANGLE_VERTEXES;
 
-                while (std::cin >> input && coordinates.size() != n_coordinates)
+                while (coordinates.size() != n_coordinates && std::cin >> input)
                         coordinates.push_back(input);
 
                 if (std::cin.fail() && !std::cin.eof())

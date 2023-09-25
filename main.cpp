@@ -22,5 +22,6 @@ int main ()
         // point_t C2{0, 0, 4};
         // triangle_t triangle1{A1, B1, C1};
         // triangle_t triangle2{A2, B2, C2};
+        
         std::cout << triangles_intersect(triangles[0], triangles[1]) << "\n";
 }

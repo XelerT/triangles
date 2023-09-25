@@ -2,7 +2,7 @@
 #include "../include/utils.hpp"
 #include "../include/triangles.hpp"
 
-using std::vector;
+using namespace std;
 using namespace geometry;
 using ui::input_t;
 
@@ -28,4 +28,24 @@ vector<triangle_t> get_triangles (input_t &input)
         }
 
         return triangles;
+}
+#include "../debug/debug.hpp"
+vector<pair<int, int>> find_triangles_intersections (vector<triangle_t> &triangles)
+{
+        vector<pair<int, int>> intersected_triangles_indexes {};
+
+        int i = 0;
+        int j = 0;
+        $
+        for (auto it = triangles.cbegin(); it != triangles.cend() - 1; it++, i++) {
+                $
+                for (auto jt = it + 1; jt != triangles.cend(); jt++, j++) {
+                        $
+                        if (triangles_intersect(*it, *jt)) {
+                                $
+                                intersected_triangles_indexes.push_back(pair<int, int>(i, j));
+                        }
+                }
+        }
+        return intersected_triangles_indexes;
 }

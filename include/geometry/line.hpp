@@ -67,12 +67,12 @@ namespace geometry
                                                 get_y_value(parameter_),
                                                 get_z_value(parameter_)
                                               };
-                                if (!point.is_valid()) {
-                                        throw std::runtime_error(std::format(
-                                                                 "{} is invalid for this line.\n",
-                                                                  parameter_)
-                                                                );
-                                }
+                                // if (!point.is_valid()) {
+                                //         throw std::runtime_error(std::format(
+                                //                                  "{} is invalid for this line.\n",
+                                //                                   parameter_)
+                                //                                 );
+                                // }
 
                                 return point;
                         }
@@ -97,6 +97,24 @@ namespace geometry
 
                                 z_coeff = guide_vector_.z;
                                 z0      = line_point_.z;
+                        }
+
+                        point_t intersects_line_at (const line_t &line_) const 
+                        {
+                                double param = (line_.x0 - x0) / (x_coeff - line_.x_coeff);
+                                point_t point = get_point_on_line(param);
+                                if (point.is_valid())
+                                        return point;
+
+                                param = (line_.y0 - y0) / (y_coeff - line_.y_coeff);
+                                point = get_point_on_line(param);
+                                if (point.is_valid())
+                                        return point;
+
+                                param = (line_.z0 - z0) / (z_coeff - line_.z_coeff);
+                                point = get_point_on_line(param);
+
+                                return point;
                         }
         };
 }

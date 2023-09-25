@@ -4,11 +4,13 @@
 
 #include "config.hpp"
 
-#include "point.hpp"
-#include "vector.hpp"
-#include "line.hpp"
-#include "triangle.hpp"
-#include "point_in_triangle.hpp"
+// #include "point.hpp"
+// #include "vector.hpp"
+// #include "line.hpp"
+// #include "triangle.hpp"
+// #include "point_in_triangle.hpp"
+
+#include "intersection.hpp"
 
 int main(int argc, char **argv)
 {

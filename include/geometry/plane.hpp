@@ -8,12 +8,13 @@ namespace geometry
         // Plane in form of A * x + B * y + C * z + D = 0;
         class plane_t
         {
-                public:
+                private:
                         double A = 0;
                         double B = 0;
                         double C = 0;
                         double D = 0;
-        
+
+                public:
                         plane_t () = default;
                         plane_t (const point_t &point_, const vector_t &first_vector_, const vector_t &seconvec_dtor_)
                         {
@@ -65,6 +66,13 @@ namespace geometry
                                 C =   first_vector_.x * seconvec_dtor_.y - seconvec_dtor_.x * first_vector_.y;
 
                                 D = - A * point_.x - B * point_.y - C * point_.z; 
+                        }
+
+                        double plane_equation_value (const double x,
+                                                     const double y,
+                                                     const double z)
+                        {
+                                return A * x + B * y + C * z + D;
                         }
         };
 }
