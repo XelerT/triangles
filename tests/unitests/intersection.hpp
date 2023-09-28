@@ -217,3 +217,77 @@ TEST_F (triangle_in_triangle, two_triangles_1_inters)
 {
         ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
 }
+
+class same_triangles : public testing::Test {
+        point_t A{0, 0, 0};
+        point_t B{0, 3, 0};
+        point_t C{0, 0, 2};
+
+        triangle_t triangle1{A, C, B};
+        triangle_t triangle2{A, C, B};
+        
+        public:
+                vector<triangle_t> triangles {triangle1, triangle2};
+                vector<pair<int, int>> inters {pair<int, int> {0, 1}};
+
+                void SetUp() {}
+                void TearDown() {}
+};
+
+TEST_F (same_triangles, two_triangles_1_inters)
+{
+        ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
+}
+
+class parallel_with_same_side : public testing::Test {
+        point_t A{0, 0, 0};
+        point_t B{0, 3, 0};
+        point_t C{0, 0, 2};
+
+        point_t D{0, 0, 4.15};
+
+        triangle_t triangle1{A, C, B};
+        triangle_t triangle2{C, D, B};
+        
+        public:
+                vector<triangle_t> triangles {triangle1, triangle2};
+                vector<pair<int, int>> inters {pair<int, int> {0, 1}};
+
+                void SetUp() {}
+                void TearDown() {}
+};
+
+TEST_F (parallel_with_same_side, two_triangles_1_inters)
+{
+        ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
+}
+
+class triangle_in_two_triangles : public testing::Test {
+        point_t A{0, 0, 0};
+        point_t B{0, 3, 0};
+        point_t C{0, 0, 2};
+
+        point_t D{0, 0, 4.15};
+
+        point_t E{0, 0.67, 0.77};
+        point_t F{0, 1.19, 2};
+        point_t G{0, 1.57, 0.44};
+
+        triangle_t triangle1{A, C, B};
+        triangle_t triangle2{C, D, B};
+        triangle_t triangle3{E, F, G};
+
+        public:
+                vector<triangle_t> triangles {triangle1, triangle2, triangle3};
+                vector<pair<int, int>> inters {pair<int, int> {0, 1},
+                                               pair<int, int> {0, 2},
+                                               pair<int, int> {1, 2}};
+
+                void SetUp() {}
+                void TearDown() {}
+};
+
+TEST_F (triangle_in_two_triangles, three_triangles_3_inters)
+{
+        ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
+}

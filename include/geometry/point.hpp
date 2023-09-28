@@ -24,7 +24,7 @@ namespace geometry
                                 z = z_;
                         };
 
-                        void print ()
+                        void print () const
                         {
                                 std::cout << "point " << name << " is ("  <<
                                                          x << ", " <<  y   <<

@@ -30,9 +30,9 @@ bool point_is_inside_triangle (const triangle_t &triangle, const point_t &point)
         triangle_point_distance_t distance {triangle, point};
         double s0_t0_sum = distance.s0 + distance.t0;
         
-        if (double_is_equal_lower(s0_t0_sum, 1, THRESHOLD))
-                if (double_is_equal_greater(distance.s0, 0, THRESHOLD))
-                        if (double_is_equal_greater(distance.t0, 0, THRESHOLD))
+        if (is_equal_lower(s0_t0_sum, 1, THRESHOLD))
+                if (is_equal_greater(distance.s0, 0, THRESHOLD))
+                        if (is_equal_greater(distance.t0, 0, THRESHOLD))
                                 return true;
         
         return false;
@@ -44,22 +44,23 @@ bool line_intersect_triangles (const line_t     &line,
 {
         bool intersect = false;
 
-        point_t point = line.intersects_line_at(triangle2.get_line_a_b())
+        point_t point = line.intersects_line_at(triangle2.get_line_a_b());
         if (point.is_valid())
                 intersect = point_is_inside_triangle(triangle1, point) &&
                             point_is_inside_triangle(triangle2, point);
         if (!intersect) {
-                point = line.intersects_line_at(triangle2.get_line_b_c())
+                point = line.intersects_line_at(triangle2.get_line_b_c());
                 if (point.is_valid())
                         intersect = point_is_inside_triangle(triangle1, point) &&
                                     point_is_inside_triangle(triangle2, point);
         }
         if (!intersect) {
-                point = line.intersects_line_at(triangle2.get_line_c_a())
+                point = line.intersects_line_at(triangle2.get_line_c_a());
                 if (point.is_valid())
                         intersect = point_is_inside_triangle(triangle1, point) &&
                                     point_is_inside_triangle(triangle2, point);
         }
+
         return intersect;
 }
 
@@ -79,11 +80,13 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
         return intersect;
 }
 
-#include "../debug/debug.hpp"
 bool triangles_intersect (const triangle_t &triangle1, const triangle_t &triangle2)
 {
         bool intersect = false;
         plane_t plane = triangle2.get_plane();
+
+        if (plane.is_parallel2(triangle1.get_plane()))
+                return false;
 
         intersect = line_intersect_plane_in_triangles(triangle1.get_line_a_b(), plane,
                                                       triangle1, triangle2);
@@ -99,14 +102,13 @@ bool triangles_intersect (const triangle_t &triangle1, const triangle_t &triangl
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
-$
+
         plane = triangle1.get_plane();
         intersect = line_intersect_plane_in_triangles(triangle2.get_line_a_b(), plane, 
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
 
-$
         intersect = line_intersect_plane_in_triangles(triangle2.get_line_b_c(), plane,
                                                       triangle1, triangle2);
         if (intersect)
@@ -115,6 +117,5 @@ $
         intersect = line_intersect_plane_in_triangles(triangle2.get_line_c_a(), plane, 
                                                       triangle1, triangle2);
 
-$
         return intersect;
 }
