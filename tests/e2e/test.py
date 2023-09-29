@@ -57,8 +57,9 @@ def parse_data_file (file_name):
 
                 correct_output = get_correct_output(n_triangles, coords)
                 coords = coords[:n_triangles*3*3]
+                coords.insert(0, n_triangles)
 
-                return n_triangles, coords, correct_output
+                return coords, correct_output
 
 
 def run_e2e_test(app2run, input_data):
@@ -75,8 +76,7 @@ def run_e2e_test(app2run, input_data):
 
 def run_e2e_tests(app_name):
         for (n_test, file_name) in zip(range(len(data_files_names)), data_files_names):
-                n_triangles, data, correct_output = parse_data_file(file_name)
-                data.insert(0, n_triangles)
+                data, correct_output = parse_data_file(file_name)
 
                 output_data = run_e2e_test(app_name, data)
                 output_data = output_data[:len(output_data) - 2]

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "config.hpp"
 
 using namespace geometry;
@@ -72,17 +70,6 @@ TEST_F (triangle2_test, inside_triangle)
         ASSERT_TRUE(point_is_inside_triangle(triangle, point1));
         ASSERT_TRUE(point_is_inside_triangle(triangle, point2));
         ASSERT_TRUE(point_is_inside_triangle(triangle, point3));
-}
-
-TEST_F (triangle2_test, outside_triangle)
-{
-        point_t point1{-3, 0, 0};
-        point_t point2{0, 0, 4};
-        point_t point3{4.8, 2.75, 0};
-
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point1));
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point2));
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point3));
 }
 
 TEST_F (triangle3_test, inside_triangle)

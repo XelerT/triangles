@@ -1,5 +1,4 @@
-#pragma once
-
+#include "config.hpp"
 #include "../../include/triangles.hpp"
 
 using namespace geometry;
@@ -24,10 +23,9 @@ class triangles_intersection1 : public testing::Test {
         
         public:
                 vector<triangle_t> triangles {triangle1, triangle2, triangle3};
-                vector<pair<int, int>> inters {
-                                                        pair<int, int>(0, 2),
-                                                        pair<int, int>(1, 2)
-                                                     };
+                vector<pair<int, int>> inters { pair<int, int>(0, 2),
+                                                pair<int, int>(1, 2)
+                                                };
 
                 void SetUp() {}
                 void TearDown() {}

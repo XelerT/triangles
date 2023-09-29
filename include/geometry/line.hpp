@@ -67,12 +67,6 @@ namespace geometry
                                                 get_y_value(parameter_),
                                                 get_z_value(parameter_)
                                               };
-                                // if (!point.is_valid()) {
-                                //         throw std::runtime_error(std::format(
-                                //                                  "{} is invalid for this line.\n",
-                                //                                   parameter_)
-                                //                                 );
-                                // }
 
                                 return point;
                         }

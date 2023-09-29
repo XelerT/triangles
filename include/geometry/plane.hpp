@@ -1,5 +1,7 @@
 #pragma once
 
+#include <format>
+
 #include "point.hpp"
 #include "vector.hpp"
 #include "../compare.hpp"

@@ -7,7 +7,8 @@ using namespace std;
 using namespace geometry;
 using ui::input_t;
 
-vector<triangle_t> get_triangles (input_t &input)
+vector<triangle_t> 
+get_triangles (input_t &input)
 {
         vector<triangle_t> triangles;
 
@@ -31,7 +32,8 @@ vector<triangle_t> get_triangles (input_t &input)
         return triangles;
 }
 
-vector<pair<int, int>> find_triangles_intersections (vector<triangle_t> &triangles)
+vector<pair<int, int>> 
+find_triangles_intersections (vector<triangle_t> &triangles)
 {
         vector<pair<int, int>> intersected_triangles_indexes {};
 
