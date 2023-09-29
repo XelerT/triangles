@@ -4,7 +4,7 @@ project(triangles)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(default_build_type "Debug")
+set(default_build_type "Release")
 set(GTESTS False CACHE BOOL "To build unitests")
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
