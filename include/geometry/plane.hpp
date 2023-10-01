@@ -1,7 +1,5 @@
 #pragma once
 
-#include <format>
-
 #include "point.hpp"
 #include "vector.hpp"
 #include "../compare.hpp"
@@ -80,7 +78,10 @@ namespace geometry
 
                         void print () const
                         {
-                                std::cout << std::format("{}x + {}y + {}z + {} = 0\n", A, B, C, D);
+                                std::cout << A << "x + " 
+                                          << B << "y + "
+                                          << C << "z + "
+                                          << D << " = 0\n";
                         }
 
                 private:

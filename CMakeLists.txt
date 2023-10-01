@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.14)
 
 project(triangles)
 
-set(CMAKE_CXX_STANDARD 20)
+if (NOT CMAKE_CXX_STANDARD AND NOT CMAKE_CXX_COMPILER)
+        set(CMAKE_CXX_STANDARD 20)
+endif()
 
 set(default_build_type "Release")
 set(GTESTS False CACHE BOOL "To build unitests")
 
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose Release or Debug" FORCE)
 endif()
 

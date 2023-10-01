@@ -11,7 +11,8 @@ typedef enum STATUSES {
 } STATUSES;
 
 typedef enum ERRORS {
-        INVALID_POINT = 0xBADA46
+        INVALID_POINT = 0xBADA46,
+        WRONG_INPUT   = 0xBAD146
 } ERRORS;
 
 const uint8_t N_DIMENSIONS            = 3;

@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <iostream>
-#include <format>
 
 #include "../include/utils.hpp"
 
@@ -41,11 +40,12 @@ namespace ui
         {
                 if (n_triangles < MIN_N_TRIANGLES2INPUT ||
                     n_triangles > MAX_N_TRIANGLES2INPUT) {
-                        throw std::runtime_error(std::format(
-                                                "You need to input from {} to {}",
-                                                MIN_N_TRIANGLES2INPUT,
-                                                MAX_N_TRIANGLES2INPUT)
-                                                );
+                        std::cerr << "You need to input from " 
+                                  << MIN_N_TRIANGLES2INPUT
+                                  << " to "
+                                  << MAX_N_TRIANGLES2INPUT
+                                  << "\n";
+                        throw std::runtime_error("Wrong input.");
                 }
         }
 
