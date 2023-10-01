@@ -1,3 +1,4 @@
+#include <algorithm>
 
 #include "../include/utils.hpp"
 #include "../include/triangles.hpp"
@@ -66,4 +67,9 @@ get_intersected_triangles_indexes (const vector<pair<int, int>> &paired_indexes)
         }
 
         return indexes;
+}
+
+void sort_triangle_indexes (vector<int> &indexes)
+{
+        sort(indexes.begin(), indexes.end());
 }

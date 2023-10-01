@@ -52,8 +52,8 @@ namespace geometry
                         }
 
                         point_t get_vertex_a () const { return vertex_a; }
-                        point_t get_vertex_b () const { return vertex_a; }
-                        point_t get_vertex_c () const { return vertex_a; }
+                        point_t get_vertex_b () const { return vertex_b; }
+                        point_t get_vertex_c () const { return vertex_c; }
 
                         vector_t get_segment_a_b () const { return segment_a_b; }
                         vector_t get_segment_b_c () const { return segment_b_c; }

@@ -71,7 +71,7 @@ namespace geometry
 
                         double plane_equation_value (const double x,
                                                      const double y,
-                                                     const double z)
+                                                     const double z) const
                         {
                                 return A * x + B * y + C * z + D;
                         }

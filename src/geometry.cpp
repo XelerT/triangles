@@ -25,6 +25,19 @@ point_t find_line_plane_intersection (const line_t &line, const plane_t &plane)
         return line.get_point_on_line(param);
 }
 
+bool line_is_in_plane (const line_t &line, const plane_t &plane)
+{
+        point_t point1 = line.get_point_on_line(0);
+        point_t point2 = line.get_point_on_line(1);
+
+        if (plane.plane_equation_value(point1.x, point1.y, point1.z) == 0 &&
+            plane.plane_equation_value(point2.x, point2.y, point2.z) == 0) {
+                return true;
+        }
+
+        return false;
+}
+
 bool point_is_inside_triangle (const triangle_t &triangle, const point_t &point)
 {
         triangle_point_distance_t distance {triangle, point};
@@ -74,8 +87,12 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
         if (point.is_valid())
                 intersect = point_is_inside_triangle(triangle1, point) &&
                             point_is_inside_triangle(triangle2, point);
-        else
+
+        else if (line_is_in_plane(line, plane)) {
+                std::cout << "invalid\n";
                 intersect = line_intersect_triangles(line, triangle1, triangle2);
+
+        }
 
         return intersect;
 }

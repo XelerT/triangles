@@ -15,5 +15,8 @@ int main ()
         input_t input {};
         vector<triangle_t> triangles = get_triangles(input);
 
-        print<int>(get_intersected_triangles_indexes(find_triangles_intersections(triangles)));
+        auto triangles_indexes = get_intersected_triangles_indexes(find_triangles_intersections(triangles));
+        sort_triangle_indexes(triangles_indexes);
+
+        println<int>(triangles_indexes);
 }

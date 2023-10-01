@@ -16,3 +16,4 @@ find_triangles_intersections (std::vector<geometry::triangle_t> &triangles);
 std::vector<int> 
 get_intersected_triangles_indexes (const std::vector<std::pair<int, int>> &paired_indexes);
 
+void sort_triangle_indexes (std::vector<int> &indexes);
