@@ -21,7 +21,6 @@ namespace octree
 
                                 geometry::point_t middle {middle_x, middle_y, middle_z};
 
-                                // middle.print();
                                 root = new node_t<T>{middle, bottom_low_left_vertex_, upper_top_right_vertex_};
                                 if (!root)
                                         throw std::runtime_error("Cannot create root!");
@@ -51,7 +50,7 @@ namespace octree
                         void dump () const
                         {
                                 std::cout << "Size = " << size << "\n";
-                                root->dump(0);        
+                                root->dump(0);     
                         }
 
                         template <typename F>

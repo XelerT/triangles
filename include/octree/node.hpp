@@ -220,20 +220,21 @@ namespace octree
                         void find_elements_intersections_indexes (std::vector<std::pair<int, int>> &intersected_triangles_indexes,
                                                                   F find_intersection)
                         {
-                                for (auto it = elements.cbegin(); it != elements.cend() - 1; it++) {
-                                        for (auto jt = it + 1; jt != elements.cend(); jt++) {
-                                                if (find_intersection(it->first, jt->first)) {
-                                                        intersected_triangles_indexes.push_back({it->second, jt->second});
+                                if (elements.size()) {
+                                        for (auto it = elements.cbegin(); it != elements.cend() - 1; it++) {
+                                                for (auto jt = it + 1; jt != elements.cend(); jt++) {
+                                                        if (find_intersection(it->first, jt->first)) {
+                                                                intersected_triangles_indexes.push_back({it->second, jt->second});
+                                                        }
                                                 }
                                         }
+                                        for (auto it = elements.begin(); it != elements.end(); it++) {
+                                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                                        if (children[i])
+                                                                children[i]->find_intersection_with_offsprings(it, intersected_triangles_indexes, 
+                                                                                                        find_intersection);
+                                        }
                                 }
-                                for (auto it = elements.begin(); it != elements.end(); it++) {
-                                        for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
-                                                if (children[i])
-                                                        children[i]->find_intersection_with_offsprings(it, intersected_triangles_indexes, 
-                                                                                                       find_intersection);
-                                }
-                                // std::cout << "here\n";
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                         if (children[i])
                                                 children[i]->find_elements_intersections_indexes(intersected_triangles_indexes, find_intersection);

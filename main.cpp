@@ -26,5 +26,5 @@ int main ()
         
         sort_triangle_indexes(triangles_indexes);
 
-        print<int>(triangles_indexes);
+        println<int>(triangles_indexes);
 }
