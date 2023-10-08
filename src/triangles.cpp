@@ -1,15 +1,15 @@
 #include <algorithm>
 
-#include "../include/utils.hpp"
-#include "../include/triangles.hpp"
-#include "../include/std_vector.hpp"
+#include "utils.hpp"
+#include "triangles.hpp"
+#include "std_vector.hpp"
 
 using namespace std;
 using namespace geometry;
-using ui::input_t;
+using namespace octree;
 
 vector<triangle_t> 
-get_triangles (input_t &input)
+get_triangles (pair<size_t, vector<double>> &input)
 {
         vector<triangle_t> triangles;
 
@@ -17,9 +17,9 @@ get_triangles (input_t &input)
         point_t B_vertex {};
         point_t C_vertex {};
 
-        auto coord_iter = input.coordinates.begin();
+        auto coord_iter = input.second.begin();
 
-        for (size_t i = 0; i < input.n_triangles; i++) {
+        for (size_t i = 0; i < input.first; i++) {
                 A_vertex.set(coord_iter[0], coord_iter[1], coord_iter[2]);
                 coord_iter += 3;
                 B_vertex.set(coord_iter[0], coord_iter[1], coord_iter[2]);
@@ -54,7 +54,42 @@ find_triangles_intersections (vector<triangle_t> &triangles)
         return intersected_triangles_indexes;
 }
 
-vector<int> 
+vector<pair<int, int>> 
+find_triangles_intersections (vector<pair<triangle_t, size_t>> &triangles_indexes)
+{
+        vector<pair<int, int>> intersected_triangles_indexes {};
+        
+        for (auto it = triangles_indexes.cbegin(); it != triangles_indexes.cend() - 1; it++) {
+                for (auto jt = it + 1; jt != triangles_indexes.cend(); jt++) {
+                        if (triangles_intersect(it->first, jt->first)) {
+                                intersected_triangles_indexes.push_back(pair<int, int>(it->second, jt->second));
+                        }
+                }
+        }
+        return intersected_triangles_indexes;
+}
+
+
+vector<pair<int, int>> 
+find_triangles_intersections (octree::tree_t<std::pair<geometry::triangle_t, size_t>> &tree)
+{
+        vector<pair<int, int>> intersected_triangles_indexes {};
+        
+        auto divided_triangles = tree.get_elements_by_node();
+        cout << "size = " << divided_triangles.size() << "\n";
+        for (auto triangles : divided_triangles) {
+                // cout << "triangles_size = " << triangles.size() << "\n";
+                
+                auto intersections = find_triangles_intersections(triangles);
+                // for (auto el : intersections)
+                //         cout << el.first << " " << el.second << "\n";
+                intersected_triangles_indexes.insert(intersected_triangles_indexes.end(), intersections.begin(), intersections.end());
+        }
+        
+        return intersected_triangles_indexes;
+}
+
+vector<int>
 get_intersected_triangles_indexes (const vector<pair<int, int>> &paired_indexes)
 {
         vector<int> indexes = {};
@@ -72,4 +107,42 @@ get_intersected_triangles_indexes (const vector<pair<int, int>> &paired_indexes)
 void sort_triangle_indexes (vector<int> &indexes)
 {
         sort(indexes.begin(), indexes.end());
+}
+
+pair<point_t, point_t> find_extreme_points (const vector<double> &coordinates)
+{
+
+        auto coord_iter = coordinates.begin();
+        point_t max {coord_iter[0], coord_iter[1], coord_iter[2]};
+        point_t min {coord_iter[0], coord_iter[1], coord_iter[2]};
+
+        do {
+                coord_iter += 3;
+
+                if (is_equal_greater(coord_iter[0], max.x) &&
+                    is_equal_greater(coord_iter[1], max.y) &&
+                    is_equal_greater(coord_iter[2], max.z)) {
+                        max.set(coord_iter[0], coord_iter[1], coord_iter[2]);
+                } else if (is_equal_lower(coord_iter[0], min.x) &&
+                           is_equal_lower(coord_iter[1], min.y) &&
+                           is_equal_lower(coord_iter[2], min.z)) {
+                        min.set(coord_iter[0], coord_iter[1], coord_iter[2]);
+                }
+        } while (coord_iter != coordinates.end());
+
+        return pair {min, max};
+}
+
+void insert_triangles (tree_t<pair<triangle_t, size_t>> &tree, vector<triangle_t> &triangles)
+{
+        // min_max.first.print();
+        // min_max.second.print();
+
+        size_t i = 0;
+        for (auto triangle : triangles) {
+                tree.insert(pair{triangle, i}, select_octangle4triangle_index);
+                i++;
+        }
+        
+        // tree.dump();
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/geometry/geometry.hpp"
+#include "geometry/geometry.hpp"
 
 using namespace geometry;
 
@@ -43,9 +43,9 @@ bool point_is_inside_triangle (const triangle_t &triangle, const point_t &point)
         triangle_point_distance_t distance {triangle, point};
         double s0_t0_sum = distance.s0 + distance.t0;
         
-        if (is_equal_lower(s0_t0_sum, 1, THRESHOLD))
-                if (is_equal_greater(distance.s0, 0, THRESHOLD))
-                        if (is_equal_greater(distance.t0, 0, THRESHOLD))
+        if (is_equal_lower(s0_t0_sum, 1))
+                if (is_equal_greater(distance.s0, 0))
+                        if (is_equal_greater(distance.t0, 0))
                                 return true;
         
         return false;
@@ -89,7 +89,6 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
                             point_is_inside_triangle(triangle2, point);
 
         else if (line_is_in_plane(line, plane)) {
-                std::cout << "invalid\n";
                 intersect = line_intersect_triangles(line, triangle1, triangle2);
 
         }

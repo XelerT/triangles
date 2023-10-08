@@ -33,9 +33,9 @@ namespace geometry
                         {
                                 set_proportional_coeff(src_);
 
-                                if (is_equal(B, src_.B * proportional_coeff, THRESHOLD) &&
-                                    is_equal(C, src_.C * proportional_coeff, THRESHOLD) &&
-                                    is_equal(D, src_.D * proportional_coeff, THRESHOLD)
+                                if (is_equal(B, src_.B * proportional_coeff) &&
+                                    is_equal(C, src_.C * proportional_coeff) &&
+                                    is_equal(D, src_.D * proportional_coeff)
                                 )
                                         return true;
                                 
@@ -46,9 +46,9 @@ namespace geometry
                         {
                                 set_proportional_coeff(src_);
                                 
-                                if (is_equal( B * proportional_coeff, src_.B, THRESHOLD) &&
-                                    is_equal( C * proportional_coeff, src_.C, THRESHOLD) &&
-                                    !is_equal(D * proportional_coeff, src_.D, THRESHOLD)
+                                if (is_equal( B * proportional_coeff, src_.B) &&
+                                    is_equal( C * proportional_coeff, src_.C) &&
+                                    !is_equal(D * proportional_coeff, src_.D)
                                 )
                                         return true;
 
@@ -99,9 +99,9 @@ namespace geometry
                                               const double coeff2,
                                               const double coeff3) 
                         {
-                                if (is_equal(coeff1, 0, THRESHOLD) &&
-                                    is_equal(coeff2, 0, THRESHOLD) &&
-                                    is_equal(coeff1, 0, THRESHOLD)
+                                if (is_equal(coeff1, 0) &&
+                                    is_equal(coeff2, 0) &&
+                                    is_equal(coeff1, 0)
                                     )
                                         return true;
                                 
@@ -110,11 +110,11 @@ namespace geometry
 
                         void set_proportional_coeff (const plane_t &src_)
                         {
-                                if (!is_equal(A, 0, THRESHOLD))
+                                if (!is_equal(A, 0))
                                         proportional_coeff = src_.A / A;
-                                else if (!is_equal(B, 0, THRESHOLD))
+                                else if (!is_equal(B, 0))
                                         proportional_coeff = src_.B / B;
-                                else if (!is_equal(C, 0, THRESHOLD))
+                                else if (!is_equal(C, 0))
                                         proportional_coeff = src_.C / C;
                         }
         };
