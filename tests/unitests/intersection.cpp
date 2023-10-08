@@ -136,7 +136,7 @@ class triangles_intersection4 : public testing::Test {
                 void TearDown() {}
 };
 
-TEST_F (triangles_intersection3, four_triangles_6_inters)
+TEST_F (triangles_intersection4, four_triangles_6_inters)
 {
         ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
 }

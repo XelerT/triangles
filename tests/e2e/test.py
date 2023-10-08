@@ -28,7 +28,7 @@ def check_output_data(n_test, stdout_data, correct_output):
                         print(TERMINAL_COLORS.ERROR                   + \
                                 f"Test {n_test} NOT Passed\n"         + \
                                 f"Hits: \n\t outputted={stdout_data}" + \
-                                f"\n\t right={right_n_hits}"          + \
+                                f"\n\t right={correct_output}"        + \
                         TERMINAL_COLORS.DEFAULT
                         )
         except:

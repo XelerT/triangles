@@ -9,7 +9,7 @@ TEST(vector_test, init_class)
 
         vector_t vec {begin, end};
 
-        EXPECT_NEAR(vec.x, 4.0);
-        EXPECT_NEAR(vec.y, 6.5);
-        EXPECT_NEAR(vec.z, 7.5);
+        EXPECT_NEAR(vec.x, 4.0, threshold);
+        EXPECT_NEAR(vec.y, 6.5, threshold);
+        EXPECT_NEAR(vec.z, 7.5, threshold);
 }
