@@ -14,14 +14,15 @@ class TERMINAL_COLORS:
         UNDERLINE = '\033[4m'
 
 
-data_files_names = [f"tests/e2e/data/{i}.dat" for i in range(1, 11)]
+data_files_names = [f"tests/e2e/data/{i}.dat" for i in range(1, 13)]
 
 
 def check_output_data(n_test, stdout_data, correct_output):
         try:
                 if stdout_data == correct_output:
-                        print(TERMINAL_COLORS.OKGREEN   + \
-                                f"Test {n_test} Passed" + \
+                        print(TERMINAL_COLORS.OKGREEN              + \
+                                f"Test {n_test} Passed. "          + \
+                                f"File {data_files_names[n_test]}" + \
                         TERMINAL_COLORS.DEFAULT
                         )
                 else:

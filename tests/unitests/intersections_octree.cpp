@@ -44,41 +44,6 @@ TEST_F (octree_intersection1, three_triangles_2_inters)
         ASSERT_TRUE(find_triangles_intersections(tree) == inters);
 }
 
-// class triangles_intersection2 : public testing::Test {
-//         point_t A{0, 0, -4};
-//         point_t B{0, 7, 0};
-//         point_t C{0, 0, 0};
-
-//         point_t D{8, 0, 0};
-//         point_t E{0, -5, 0};
-//         point_t F{2, 0, 0};
-
-//         point_t G{-8, 0, 0};
-//         point_t I{0, 9.78, 0};
-//         point_t H{-4, 0, 0};
-
-//         point_t J{0, -10, 0};
-//         point_t K{0, 0, 4};
-//         point_t L{0, 0, 7};
-
-//         triangle_t triangle1{A, C, B};
-//         triangle_t triangle2{E, F, D};
-//         triangle_t triangle3{G, I, H};
-//         triangle_t triangle4{J, L, K};
-        
-//         public:
-//                 vector<triangle_t> triangles {triangle1, triangle2, triangle3, triangle4};
-//                 vector<pair<int, int>> inters {};
-
-//                 void SetUp() {}
-//                 void TearDown() {}
-// };
-
-// TEST_F (octree_triangles_intersection2, four_triangles_0_inters)
-// {
-//         ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
-// }
-
 class octree_triangles_intersection3 : public testing::Test {
         point_t A{-10, 0, 0};
         point_t B{5, 0, 0};
@@ -97,11 +62,8 @@ class octree_triangles_intersection3 : public testing::Test {
         triangle_t triangle3{D, B, C};
         triangle_t triangle4{G, F, E};
         
-        // point_t min{-10, -15, 0};
-        // point_t max{10, 0, 10};
-
-        point_t min{-11, -11, -1};
-        point_t max{11, 1, 11};
+        point_t min{-10, -15, 0};
+        point_t max{10, 0, 10};
 
         public:
                 vector<triangle_t> triangles {triangle1, triangle2, triangle3, triangle4};
@@ -160,56 +122,6 @@ TEST_F (octree_intersection4, four_triangles_6_inters)
 {
         ASSERT_TRUE(find_triangles_intersections(tree) == inters);
 }
-
-// class parallel_triangles_diff_planes : public testing::Test {
-//         point_t A{1, 1, 5};
-//         point_t B{-1, -1, 5};
-//         point_t C{1, -1, 5};
-
-//         point_t D{4, 0, 0};
-//         point_t E{0, 7, 0};
-//         point_t F{-2.95, -3.68, 0};
-
-//         triangle_t triangle1{A, C, B};
-//         triangle_t triangle2{D, F, E};
-        
-//         public:
-//                 vector<triangle_t> triangles {triangle1, triangle2};
-//                 vector<pair<int, int>> inters {};
-
-//                 void SetUp() {}
-//                 void TearDown() {}
-// };
-
-// TEST_F (parallel_triangles_diff_planes, two_triangles_0_inters)
-// {
-//         ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
-// }
-
-// class parallel_triangles_same_plane : public testing::Test {
-//         point_t A{0, -7, 0};
-//         point_t B{7, 0, 0};
-//         point_t C{0, 0, 0};
-
-//         point_t D{-6, 0, 0};
-//         point_t E{0, 2, 0};
-//         point_t F{0, 6, 0};
-
-//         triangle_t triangle1{A, C, B};
-//         triangle_t triangle2{D, F, E};
-        
-//         public:
-//                 vector<triangle_t> triangles {triangle1, triangle2};
-//                 vector<pair<int, int>> inters {};
-
-//                 void SetUp() {}
-//                 void TearDown() {}
-// };
-
-// TEST_F (parallel_triangles_same_plane, two_triangles_0_inters)
-// {
-//         ASSERT_TRUE(find_triangles_intersections(triangles) == inters);
-// }
 
 class octree_triangle_in_triangle : public testing::Test {
         point_t A{-1.81, 0.59, 0};
