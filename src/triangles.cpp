@@ -69,12 +69,11 @@ find_triangles_intersections (vector<pair<triangle_t, size_t>> &triangles_indexe
         return intersected_triangles_indexes;
 }
 
-
-vector<pair<int, int>> 
+vector<pair<int, int>>
 find_triangles_intersections (octree::tree_t<std::pair<geometry::triangle_t, size_t>> &tree)
 {
         vector<pair<int, int>> intersected_triangles_indexes {};
-                
+
         tree.find_elems_intersections_indexes(intersected_triangles_indexes, triangles_intersect);
 
         return intersected_triangles_indexes;
@@ -111,32 +110,26 @@ pair<point_t, point_t> find_extreme_points (const vector<double> &coordinates)
         point_t min {coord_iter[0], coord_iter[1], coord_iter[2]};
 
         do {
-                if (is_equal_greater(coord_iter[0], max.x)) {
+                if (is_equal_greater(coord_iter[0], max.x))
                         max.x = coord_iter[0];
-                }
-                if (is_equal_greater(coord_iter[1], max.y)) {
+                if (is_equal_greater(coord_iter[1], max.y))
                         max.y = coord_iter[1];
-                }
-                if (is_equal_greater(coord_iter[2], max.z)) {
+                if (is_equal_greater(coord_iter[2], max.z))
                         max.z = coord_iter[2];
-                }
                 
-                if (is_equal_lower(coord_iter[0], min.x)) {
+                if (is_equal_lower(coord_iter[0], min.x))
                         min.x = coord_iter[0];
-                }
-                if (is_equal_lower(coord_iter[1], min.y)) {
+                if (is_equal_lower(coord_iter[1], min.y))
                         min.y = coord_iter[1];
-                }
-                if (is_equal_lower(coord_iter[2], min.z)) {
+                if (is_equal_lower(coord_iter[2], min.z))
                         min.z = coord_iter[2];
-                }
 
                 coord_iter++;
-                if (max_coord < *coord_iter) {
+                if (max_coord < *coord_iter)
                         max_coord = *coord_iter;
-                } else if (min_coord > *coord_iter) {
+                else if (min_coord > *coord_iter)
                         min_coord = *coord_iter;
-                }
+
         } while (coord_iter != coordinates.end());
         
         min.set(min_coord, min_coord, min_coord);

@@ -35,7 +35,8 @@ namespace
         }
 } // anonymous namespace
 
-octosector_t select_octangle4triangle_index (const pair<triangle_t, size_t> &triangle_index, const point_t &middle)
+octosector_t select_octangle4triangle_index (const pair<triangle_t, size_t> &triangle_index,
+                                             const point_t &middle)
 {
         auto vertex_a = triangle_index.first.get_vertex_a();
         auto vertex_b = triangle_index.first.get_vertex_b();

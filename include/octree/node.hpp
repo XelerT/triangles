@@ -232,7 +232,7 @@ namespace octree
                                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                                         if (children[i])
                                                                 children[i]->find_intersection_with_offsprings(it, intersected_triangles_indexes, 
-                                                                                                        find_intersection);
+                                                                                                                   find_intersection);
                                         }
                                 }
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
@@ -250,6 +250,10 @@ namespace octree
                                                 intersected_triangles_indexes.push_back({parent_it->second, it->second});
                                         }
                                 }
+                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                        if (children[i])
+                                                children[i]->find_intersection_with_offsprings(parent_it, intersected_triangles_indexes, 
+                                                                                                          find_intersection);
                         }
 
                         void print_tabs (const size_t n_tabs2print) const
@@ -261,9 +265,10 @@ namespace octree
 
                         void dump (const size_t layer) const
                         {
+                                print_tabs(layer);
                                 std::cout << "{";
                                 std::cout << " n_elements=" << elements.size() << "\n";
-                                print_tabs(layer);
+                                print_tabs(layer + 1);
 
                                 if (elements.size()) {
                                         std::cout << "triangle=\n";
@@ -276,10 +281,10 @@ namespace octree
                                         if (children[i]) {
                                                 children[i]->dump(layer + 1);
                                                 std::cout << "\n";
-                                                print_tabs(layer);
-                                                std::cout << "}\n";
                                         }
                                 }
+                                print_tabs(layer);
+                                std::cout << "}\n";
                         }
         };
 }
