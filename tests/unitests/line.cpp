@@ -11,12 +11,12 @@ TEST (line_test, init_class)
         line_t line {vec, begin};
 
         EXPECT_NEAR(line.get_x_value(1), 4.0 + 1,    THRESHOLD);
-        EXPECT_NEAR(line.get_y_value(1), 6.5 + 0.25, THRESHOLD);
+        EXPECT_NEAR(line.get_y_value(1), 6.5 + 0.25);
         EXPECT_NEAR(line.get_z_value(1), 7.5 + 2.5,  THRESHOLD);
 
         point_t point = line.get_point_on_line(1);
         EXPECT_NEAR(point.x, 4.0 + 1,    THRESHOLD);
-        EXPECT_NEAR(point.y, 6.5 + 0.25, THRESHOLD);
+        EXPECT_NEAR(point.y, 6.5 + 0.25);
         EXPECT_NEAR(point.z, 7.5 + 2.5,  THRESHOLD);
 }
 

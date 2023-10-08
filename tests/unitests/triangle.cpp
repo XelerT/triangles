@@ -10,9 +10,9 @@ using namespace geometry;
 
 //         triangle_t triangle {A, B, C};
 
-//         EXPECT_NEAR(triangle.vertex_a.x, 0, THRESHOLD);
-//         EXPECT_NEAR(triangle.vertex_a.y, 0, THRESHOLD);
-//         EXPECT_NEAR(triangle.vertex_a.z, 0, THRESHOLD);
+//         EXPECT_NEAR(triangle.vertex_a.x, 0);
+//         EXPECT_NEAR(triangle.vertex_a.y, 0);
+//         EXPECT_NEAR(triangle.vertex_a.z, 0);
 // }
 
 // struct triangle_test : public testing::Test {
