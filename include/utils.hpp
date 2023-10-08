@@ -21,4 +21,6 @@ const uint8_t MAX_POINT_NAME_LENGTH   = 8;
 const uint8_t MIN_N_TRIANGLES2INPUT   = 1;
 const size_t  MAX_N_TRIANGLES2INPUT   = 1'000'000;
 
-#define THRESHOLD 1.e-5;
+#define THRESHOLD
+
+const double threshold = 1.e-5;

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include <utility>
 
 #include "geometry/geometry.hpp"
 #include "utils.hpp"
@@ -204,7 +205,6 @@ namespace octree
                                 }
                         }
 
-                        
                         void insert_elements_by_node(std::vector<std::vector<T>> &divided_elements)
                         {                            
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++) {
@@ -214,6 +214,41 @@ namespace octree
                                         }
                                 }
                                 divided_elements.push_back(elements);
+                        }
+
+                        template <typename F>
+                        void find_elements_intersections_indexes (std::vector<std::pair<int, int>> &intersected_triangles_indexes,
+                                                                  F find_intersection)
+                        {
+                                for (auto it = elements.cbegin(); it != elements.cend() - 1; it++) {
+                                        for (auto jt = it + 1; jt != elements.cend(); jt++) {
+                                                if (find_intersection(it->first, jt->first)) {
+                                                        intersected_triangles_indexes.push_back({it->second, jt->second});
+                                                }
+                                        }
+                                }
+                                for (auto it = elements.begin(); it != elements.end(); it++) {
+                                        for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                                if (children[i])
+                                                        children[i]->find_intersection_with_offsprings(it, intersected_triangles_indexes, 
+                                                                                                       find_intersection);
+                                }
+                                // std::cout << "here\n";
+                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                        if (children[i])
+                                                children[i]->find_elements_intersections_indexes(intersected_triangles_indexes, find_intersection);
+                        }
+                        
+                        template <typename F>
+                        void find_intersection_with_offsprings (const std::vector<std::pair<geometry::triangle_t, size_t>>::iterator parent_it,
+                                                                      std::vector<std::pair<int, int>> &intersected_triangles_indexes, 
+                                                                      F find_intersection)
+                        {
+                                for (auto it = elements.cbegin(); it != elements.cend(); it++) {
+                                        if (find_intersection(parent_it->first, it->first)) {
+                                                intersected_triangles_indexes.push_back({parent_it->second, it->second});
+                                        }
+                                }
                         }
 
                         void print_tabs (const size_t n_tabs2print) const
@@ -226,12 +261,12 @@ namespace octree
                         void dump (const size_t layer) const
                         {
                                 std::cout << "{";
-                                std::cout << " n_elems=" << elements.size() << "\n";
+                                std::cout << " n_elements=" << elements.size() << "\n";
                                 print_tabs(layer);
 
                                 if (elements.size()) {
                                         std::cout << "triangle=\n";
-                                        elements[0].print();
+                                        elements[0].first.print();
                                 }
                                 std::cout << "\n";
                                 print_tabs(layer);

@@ -39,7 +39,7 @@ namespace geometry
                                 plane.set(vertex_a, segment_a_b, segment_a_c);
                         };
 
-                        void print ()
+                        void print () const 
                         {
                                 std::cout << "side a:\n\t";
                                 segment_a_b.print();

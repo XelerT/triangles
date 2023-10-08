@@ -75,17 +75,19 @@ find_triangles_intersections (octree::tree_t<std::pair<geometry::triangle_t, siz
 {
         vector<pair<int, int>> intersected_triangles_indexes {};
         
-        auto divided_triangles = tree.get_elements_by_node();
-        cout << "size = " << divided_triangles.size() << "\n";
-        for (auto triangles : divided_triangles) {
-                // cout << "triangles_size = " << triangles.size() << "\n";
+        // auto divided_triangles = tree.get_elements_by_node();
+        // // cout << "size = " << divided_triangles.size() << "\n";
+        // for (auto triangles : divided_triangles) {
+        //         // cout << "triangles_size = " << triangles.size() << "\n";
                 
-                auto intersections = find_triangles_intersections(triangles);
-                // for (auto el : intersections)
-                //         cout << el.first << " " << el.second << "\n";
-                intersected_triangles_indexes.insert(intersected_triangles_indexes.end(), intersections.begin(), intersections.end());
-        }
+        //         auto intersections = find_triangles_intersections(triangles);
+        //         // for (auto el : intersections)
+        //         //         cout << el.first << " " << el.second << "\n";
+        //         intersected_triangles_indexes.insert(intersected_triangles_indexes.end(), intersections.begin(), intersections.end());
+        // }
         
+        tree.find_elems_intersections_indexes(intersected_triangles_indexes, triangles_intersect);
+
         return intersected_triangles_indexes;
 }
 
@@ -113,22 +115,55 @@ pair<point_t, point_t> find_extreme_points (const vector<double> &coordinates)
 {
 
         auto coord_iter = coordinates.begin();
+        double min_coord = coord_iter[0];
+        double max_coord = coord_iter[0];
+
         point_t max {coord_iter[0], coord_iter[1], coord_iter[2]};
         point_t min {coord_iter[0], coord_iter[1], coord_iter[2]};
 
         do {
-                coord_iter += 3;
+                // coord_iter += 3;
 
-                if (is_equal_greater(coord_iter[0], max.x) &&
-                    is_equal_greater(coord_iter[1], max.y) &&
-                    is_equal_greater(coord_iter[2], max.z)) {
-                        max.set(coord_iter[0], coord_iter[1], coord_iter[2]);
-                } else if (is_equal_lower(coord_iter[0], min.x) &&
-                           is_equal_lower(coord_iter[1], min.y) &&
-                           is_equal_lower(coord_iter[2], min.z)) {
-                        min.set(coord_iter[0], coord_iter[1], coord_iter[2]);
+                // if (is_equal_greater(coord_iter[0], max.x) &&
+                //     is_equal_greater(coord_iter[1], max.y) &&
+                //     is_equal_greater(coord_iter[2], max.z)) {
+                //         max.set(coord_iter[0], coord_iter[1], coord_iter[2]);
+                // } else if (is_equal_lower(coord_iter[0], min.x) &&
+                //            is_equal_lower(coord_iter[1], min.y) &&
+                //            is_equal_lower(coord_iter[2], min.z)) {
+                //         min.set(coord_iter[0], coord_iter[1], coord_iter[2]);
+                // }
+
+                if (is_equal_greater(coord_iter[0], max.x)) {
+                        max.x = coord_iter[0];
+                }
+                if (is_equal_greater(coord_iter[1], max.y)) {
+                        max.y = coord_iter[1];
+                }
+                if (is_equal_greater(coord_iter[2], max.z)) {
+                        max.z = coord_iter[2];
+                }
+                
+                if (is_equal_lower(coord_iter[0], min.x)) {
+                        min.x = coord_iter[0];
+                }
+                if (is_equal_lower(coord_iter[1], min.y)) {
+                        min.y = coord_iter[1];
+                }
+                if (is_equal_lower(coord_iter[2], min.z)) {
+                        min.z = coord_iter[2];
+                }
+
+                coord_iter++;
+                if (max_coord < *coord_iter) {
+                        max_coord = *coord_iter;
+                } else if (min_coord > *coord_iter) {
+                        min_coord = *coord_iter;
                 }
         } while (coord_iter != coordinates.end());
+        
+        min.set(min_coord, min_coord, min_coord);
+        max.set(max_coord, max_coord, max_coord);
 
         return pair {min, max};
 }

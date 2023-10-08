@@ -48,10 +48,16 @@ namespace octree
                                 return divided_elements;
                         }
 
-                        void dump ()
+                        void dump () const
                         {
                                 std::cout << "Size = " << size << "\n";
                                 root->dump(0);        
+                        }
+
+                        template <typename F>
+                        void find_elems_intersections_indexes (std::vector<std::pair<int, int>> &intersected_triangles_indexes, F find_intersection) 
+                        {
+                                root->find_elements_intersections_indexes(intersected_triangles_indexes, find_intersection);
                         }
         };
 }

@@ -2,9 +2,7 @@
 
 #include <cmath>
 
-#ifdef THRESHOLD
-const double threshold = THRESHOLD;
-#else 
+#ifndef THRESHOLD
 const double threshold = 1.e-5;
 #endif /*THRESHOLD*/
 

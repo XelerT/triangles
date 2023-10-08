@@ -10,9 +10,9 @@ namespace
 {
         octosector_t get_point_sector (const point_t &point, const point_t &middle)
         {
-                bool x_greater = point.x > middle.x;
-                bool y_greater = point.y > middle.y;
-                bool z_greater = point.z > middle.z;
+                bool x_greater = is_greater(point.x, middle.x);
+                bool y_greater = is_greater(point.y, middle.y);
+                bool z_greater = is_greater(point.z, middle.z);
 
                 if (x_greater && y_greater && z_greater)
                         return octosector_t::FIRST;
