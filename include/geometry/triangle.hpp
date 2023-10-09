@@ -21,11 +21,11 @@ namespace geometry
                                              vertex_c(vertex_c_),
                                              vertex_b(vertex_b_)
                         {
-                                if (!vertex_a_.is_valid() ||
-                                    !vertex_b_.is_valid() ||
-                                    !vertex_c_.is_valid()
-                                    )
-                                        throw std::runtime_error("Point has invalid coordinates to create triangle.");
+                                // if (!vertex_a_.is_valid() ||
+                                //     !vertex_b_.is_valid() ||
+                                //     !vertex_c_.is_valid()
+                                //     )
+                                //         throw std::runtime_error("Point has invalid coordinates to create triangle.");
                                 
                                 segment_a_b.set(vertex_a, vertex_b);
                                 segment_b_c.set(vertex_b, vertex_c);

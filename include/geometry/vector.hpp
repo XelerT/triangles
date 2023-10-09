@@ -15,8 +15,8 @@ namespace geometry
                         vector_t () = default;
                         vector_t (const point_t &begin_, const point_t &end_)
                         {
-                                if (!begin_.is_valid() || !end_.is_valid())
-                                        throw std::runtime_error("Point has invalid coordinates to create vector.");
+                                // if (!begin_.is_valid() || !end_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates to create vector.");
 
                                 x = end_.x - begin_.x;
                                 y = end_.y - begin_.y;
@@ -39,8 +39,8 @@ namespace geometry
 
                         void set (const point_t &begin_, const point_t &end_)
                         {
-                                if (!begin_.is_valid() || !end_.is_valid())
-                                        throw std::runtime_error("Point has invalid coordinates to create vector.");
+                                // if (!begin_.is_valid() || !end_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates to create vector.");
 
                                 x = end_.x - begin_.x;
                                 y = end_.y - begin_.y;

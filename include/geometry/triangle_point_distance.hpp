@@ -33,37 +33,23 @@ namespace geometry
                                                    :
                                                    vec_d(point_, triangle_.get_vertex_a())
                         {
-                                if (!point_.is_valid())
-                                        throw std::runtime_error("Point has invalid coordinates"                \
-                                                                 " to calculate distance to triangle.");
+                                // if (!point_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates"                \
+                                //                                  " to calculate distance to triangle.");
 
                                 vector_t segment_a_b = triangle_.get_segment_a_b();
                                 vector_t segment_a_c = triangle_.get_segment_a_c();
 
-                                // segment_a_b.print();
-                                // segment_a_c.print();     
-                                // vec_d.print();
-
-                                a = triangle_.get_segment_a_b().scalar_product(segment_a_b);
-                                b = triangle_.get_segment_a_b().scalar_product(segment_a_c);
-                                c = triangle_.get_segment_a_c().scalar_product(segment_a_c);
-                                d = triangle_.get_segment_a_b().scalar_product(vec_d);
-                                e = triangle_.get_segment_a_c().scalar_product(vec_d);
+                                a = segment_a_b.scalar_product(segment_a_b);
+                                b = segment_a_b.scalar_product(segment_a_c);
+                                c = segment_a_c.scalar_product(segment_a_c);
+                                d = segment_a_b.scalar_product(vec_d);
+                                e = segment_a_c.scalar_product(vec_d);
                                 f = vec_d.scalar_product(vec_d);
 
                                 calculate_inv_s0_t0_divisor();
                                 calculate_s0();
-                                calculate_t0();
-                                
-                                // $dump(a)
-                                // $dump(b)
-                                // $dump(c)
-                                // $dump(d)
-                                // $dump(e)
-                                // $dump(f)
-                                // $dump(inv_s0_t0_divisor)
-                                // $dump(s0)
-                                // $dump(t0)
+                                calculate_t0();                                
                         };
 
                         void calculate_distance_square (double s, double t)

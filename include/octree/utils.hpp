@@ -17,5 +17,5 @@ namespace octree
 
         const uint8_t N_OCTREE_CHILDREN = 8;
         const uint8_t N_CUBE_VERTEXES   = 8;
-        const double  MIN_CUBE_SIDE     = 1.e-2;
+        const double  MIN_CUBE_SIDE     = 1;
 }

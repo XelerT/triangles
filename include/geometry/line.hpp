@@ -23,8 +23,8 @@ namespace geometry
                         line_t () = default;
                         line_t (const vector_t &guide_vector_, const point_t &line_point_)
                         {
-                                if (!line_point_.is_valid())
-                                        throw std::runtime_error("Point has invalid coordinates to create line.");
+                                // if (!line_point_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates to create line.");
 
                                 x_coeff = guide_vector_.x;
                                 x0      = line_point_.x;
@@ -79,8 +79,8 @@ namespace geometry
 
                         void set (const vector_t &guide_vector_, const point_t &line_point_)
                         {
-                                if (!line_point_.is_valid())
-                                        throw std::runtime_error("Point has invalid coordinates to create line.");
+                                // if (!line_point_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates to create line.");
 
                                 x_coeff = guide_vector_.x;
                                 x0      = line_point_.x;

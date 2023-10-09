@@ -90,7 +90,6 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
 
         else if (line_is_in_plane(line, plane)) {
                 intersect = line_intersect_triangles(line, triangle1, triangle2);
-
         }
 
         return intersect;
