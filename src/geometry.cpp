@@ -99,38 +99,38 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
 bool triangles_intersect (const triangle_t &triangle1, const triangle_t &triangle2)
 {
         bool intersect = false;
-        plane_t plane = triangle2.get_plane();
+        plane_t plane2 = triangle2.get_plane();
+        plane_t plane1 = triangle1.get_plane();
 
-        if (plane.is_parallel2(triangle1.get_plane()))
+        if (plane2.is_parallel2(plane1))
                 return false;
 
-        intersect = line_intersect_plane_in_triangles(triangle1.get_line_a_b(), plane,
+        intersect = line_intersect_plane_in_triangles(triangle1.get_line_a_b(), plane2,
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
 
-        intersect = line_intersect_plane_in_triangles(triangle1.get_line_b_c(), plane,
+        intersect = line_intersect_plane_in_triangles(triangle1.get_line_b_c(), plane2,
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
 
-        intersect = line_intersect_plane_in_triangles(triangle1.get_line_c_a(), plane,
+        intersect = line_intersect_plane_in_triangles(triangle1.get_line_c_a(), plane2,
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
 
-        plane = triangle1.get_plane();
-        intersect = line_intersect_plane_in_triangles(triangle2.get_line_a_b(), plane, 
+        intersect = line_intersect_plane_in_triangles(triangle2.get_line_a_b(), plane1, 
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
 
-        intersect = line_intersect_plane_in_triangles(triangle2.get_line_b_c(), plane,
+        intersect = line_intersect_plane_in_triangles(triangle2.get_line_b_c(), plane1,
                                                       triangle1, triangle2);
         if (intersect)
                 return intersect;
 
-        intersect = line_intersect_plane_in_triangles(triangle2.get_line_c_a(), plane, 
+        intersect = line_intersect_plane_in_triangles(triangle2.get_line_c_a(), plane1, 
                                                       triangle1, triangle2);
 
         return intersect;
