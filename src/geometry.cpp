@@ -4,23 +4,24 @@
 
 using namespace geometry;
 
-double find_line_plane_intersection_param (const line_t &line, const plane_t &plane)
-{
-        double numerator   = - (plane.get_A() * line.get_x0() + 
-                                plane.get_B() * line.get_y0() + 
-                                plane.get_C() * line.get_z0() + 
-                                plane.get_D()); 
+// double find_line_plane_intersection_param (const line_t &line, const plane_t &plane)
+// {
+//         double numerator   = - (plane.get_A() * line.get_x0() + 
+//                                 plane.get_B() * line.get_y0() + 
+//                                 plane.get_C() * line.get_z0() + 
+//                                 plane.get_D());
 
-        double denominator = plane.get_A() * line.get_x_coeff() + 
-                             plane.get_B() * line.get_y_coeff() + 
-                             plane.get_C() * line.get_z_coeff();
+//         double denominator = plane.get_A() * line.get_x_coeff() + 
+//                              plane.get_B() * line.get_y_coeff() + 
+//                              plane.get_C() * line.get_z_coeff();
 
-        return numerator / denominator;
-}
+//         return numerator / denominator;
+// }
 
 point_t find_line_plane_intersection (const line_t &line, const plane_t &plane)
 {
-        double param = find_line_plane_intersection_param(line, plane);
+        // double param = find_line_plane_intersection_param(line, plane);
+        double param = plane.find_line_plane_intersection_param(line);
 
         return line.get_point_on_line(param);
 }

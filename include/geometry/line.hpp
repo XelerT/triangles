@@ -61,13 +61,9 @@ namespace geometry
 
                         point_t get_point_on_line (const double parameter_) const
                         {
-                                point_t point {
-                                                get_x_value(parameter_),
-                                                get_y_value(parameter_),
-                                                get_z_value(parameter_)
-                                              };
-
-                                return point;
+                                return point_t(get_x_value(parameter_),
+                                               get_y_value(parameter_),
+                                               get_z_value(parameter_));
                         }
 
                         void print () 

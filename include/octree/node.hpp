@@ -173,6 +173,18 @@ namespace octree
                                 calculate_middle();
                         };
 
+                        node_t (const geometry::point_t &bottom_low_left_vertex_, 
+                                const geometry::point_t &upper_top_right_vertex_) 
+                        {                                
+                                vertexes[SIXTH] = bottom_low_left_vertex_;
+                                vertexes[FIRST] = upper_top_right_vertex_;
+
+                                calculate_cube_side_length();
+
+                                calculate_vertexes();
+                                calculate_middle();
+                        };
+
                         ~node_t ()
                         {
                                 for (int i = 0; i < N_OCTREE_CHILDREN; i++)
@@ -195,11 +207,8 @@ namespace octree
                                 }
 
                                 if (!(children[sector])) {
-                                        geometry::point_t bottom_low_left_vertex = get_sector_bottom_vertex(sector);
-                                        geometry::point_t upper_top_right_vertex = get_sector_upper_vertex(sector);
-
-                                        children[sector] = new node_t<T>{elem, bottom_low_left_vertex,
-                                                                               upper_top_right_vertex};
+                                        children[sector] = new node_t<T>{elem, get_sector_bottom_vertex(sector),
+                                                                               get_sector_upper_vertex(sector)};
                                 } else {
                                         children[sector]->insert(elem, select_octangle);
                                 }

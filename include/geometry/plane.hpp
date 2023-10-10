@@ -84,6 +84,20 @@ namespace geometry
                                           << D << " = 0\n";
                         }
 
+                        double find_line_plane_intersection_param (const line_t &line) const
+                        {
+                                double numerator   = - (A * line.get_x0() + 
+                                                        B * line.get_y0() + 
+                                                        C * line.get_z0() + 
+                                                        D);
+
+                                double denominator = A * line.get_x_coeff() + 
+                                                     B * line.get_y_coeff() + 
+                                                     C * line.get_z_coeff();
+
+                                return numerator / denominator;
+                        }
+
                 private:
                         void reduce_zero_plane_coeffs ()
                         {

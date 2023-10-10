@@ -23,8 +23,6 @@ namespace geometry
                                 z = end_.z - begin_.z;
                         };
 
-                        ~vector_t () {};
-
                         void print () const
                         {
                                 std::cout << "[" << x << ", " <<
@@ -32,7 +30,7 @@ namespace geometry
                                                     z << "]\n";
                         }
 
-                        double scalar_product (vector_t &vec_)
+                        double scalar_product (vector_t &vec_) const
                         {
                                 return x * vec_.x + y * vec_.y + z * vec_.z;
                         }
