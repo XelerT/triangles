@@ -45,5 +45,17 @@ namespace geometry
                                 y = y_;
                                 z = z_;
                         }
+
+                        bool is_equal2 (const point_t &point_) const 
+                        {
+                                // point_.print();
+                                // print();
+                                if (is_equal(x, point_.x) &&
+                                    is_equal(y, point_.y) &&
+                                    is_equal(z, point_.z))
+                                    return true;
+
+                                return false;
+                        }
         };
 }

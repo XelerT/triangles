@@ -42,7 +42,7 @@ namespace octree
                         get_elements_by_node()
                         {
                                 std::vector<std::vector<T>> divided_elements;
-                                root->insert_elements_by_node(divided_elements);
+                                root->get_elements_by_node(divided_elements);
 
                                 return divided_elements;
                         }

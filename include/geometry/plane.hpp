@@ -10,7 +10,7 @@ namespace geometry
         class plane_t
         {
                 private:
-                        double A = 0;
+                        double A = NAN;
                         double B = 0;
                         double C = 0;
                         double D = 0;
@@ -57,8 +57,8 @@ namespace geometry
 
                         void set (const point_t &point_, const vector_t &vector1_, const vector_t &vector2_)
                         {
-                                if (!point_.is_valid())
-                                        throw std::runtime_error("Point has invalid coordinates to create plane.");
+                                // if (!point_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates to create plane.");
 
                                 A =   vector1_.y * vector2_.z - vector2_.y * vector1_.z;
                                 B = -(vector1_.x * vector2_.z - vector2_.x * vector1_.z);
@@ -84,16 +84,16 @@ namespace geometry
                                           << D << " = 0\n";
                         }
 
-                        double find_line_plane_intersection_param (const line_t &line) const
+                        double find_line_plane_intersection_param (const line_t &line_) const
                         {
-                                double numerator   = - (A * line.get_x0() + 
-                                                        B * line.get_y0() + 
-                                                        C * line.get_z0() + 
+                                double numerator   = - (A * line_.get_x0() + 
+                                                        B * line_.get_y0() + 
+                                                        C * line_.get_z0() + 
                                                         D);
 
-                                double denominator = A * line.get_x_coeff() + 
-                                                     B * line.get_y_coeff() + 
-                                                     C * line.get_z_coeff();
+                                double denominator = A * line_.get_x_coeff() + 
+                                                     B * line_.get_y_coeff() + 
+                                                     C * line_.get_z_coeff();
 
                                 return numerator / denominator;
                         }
@@ -115,7 +115,7 @@ namespace geometry
                         {
                                 if (is_equal(coeff1, 0) &&
                                     is_equal(coeff2, 0) &&
-                                    is_equal(coeff1, 0)
+                                    is_equal(coeff3, 0)
                                     )
                                         return true;
                                 

@@ -22,6 +22,12 @@ namespace geometry
                                 y = end_.y - begin_.y;
                                 z = end_.z - begin_.z;
                         };
+                        vector_t (const double x_, const double y_, const double z_)
+                        {
+                                x = x_;
+                                y = y_;
+                                z = z_;            
+                        }
 
                         void print () const
                         {

@@ -30,9 +30,11 @@ bool line_is_in_plane (const line_t &line, const plane_t &plane)
 {
         point_t point1 = line.get_point_on_line(0);
         point_t point2 = line.get_point_on_line(1);
+        // std::cout << plane.plane_equation_value(point1.x, point1.y, point1.z) << "\n"; 
+        // std::cout << plane.plane_equation_value(point2.x, point2.y, point2.z) << "\n"; 
 
-        if (plane.plane_equation_value(point1.x, point1.y, point1.z) == 0 &&
-            plane.plane_equation_value(point2.x, point2.y, point2.z) == 0) {
+        if (is_equal(plane.plane_equation_value(point1.x, point1.y, point1.z), 0) &&
+            is_equal(plane.plane_equation_value(point2.x, point2.y, point2.z), 0)) {
                 return true;
         }
 
@@ -85,11 +87,14 @@ bool line_intersect_plane_in_triangles (const line_t &line, const plane_t &plane
         bool intersect = false;
 
         point_t point = find_line_plane_intersection(line, plane);
-        if (point.is_valid())
+        if (point.is_valid()) {
                 intersect = point_is_inside_triangle(triangle1, point) &&
                             point_is_inside_triangle(triangle2, point);
 
-        else if (line_is_in_plane(line, plane)) {
+        } else if (line_is_in_plane(line, plane)) {
+                if (triangle1.is_equal(triangle2)) {
+                        return true;
+                }
                 intersect = line_intersect_triangles(line, triangle1, triangle2);
         }
 

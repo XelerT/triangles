@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "../utils.hpp"
 #include "vector.hpp"
 
 namespace geometry
@@ -66,7 +67,7 @@ namespace geometry
                                                get_z_value(parameter_));
                         }
 
-                        void print () 
+                        void print () const
                         {
                                 std::cout << "x = " << x_coeff << "t + (" << x0 << ")\n";
                                 std::cout << "y = " << y_coeff << "t + (" << y0 << ")\n";
@@ -86,6 +87,20 @@ namespace geometry
 
                                 z_coeff = guide_vector_.z;
                                 z0      = line_point_.z;
+                        }
+
+                        bool line_equal2 (const line_t &line_) const
+                        {
+                                if (is_equal(x0,      line_.x0)       &&
+                                    is_equal(y0,      line_.y0)       &&
+                                    is_equal(z0,      line_.z0)       &&
+                                    is_equal(x_coeff, line_.x_coeff)  &&
+                                    is_equal(y_coeff, line_.y_coeff)  &&
+                                    is_equal(z_coeff, line_.z_coeff)) {
+                                        
+                                        return true;
+                                    }
+                                return false;
                         }
 
                         point_t intersects_line_at (const line_t &line_) const 

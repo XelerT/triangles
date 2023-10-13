@@ -1,5 +1,6 @@
 import subprocess
 import argparse
+import time
 from subprocess import Popen, PIPE, STDOUT
 
 class TERMINAL_COLORS:
@@ -14,21 +15,23 @@ class TERMINAL_COLORS:
         UNDERLINE = '\033[4m'
 
 
-data_files_names = [f"tests/e2e/data/{i}.dat" for i in range(1, 14)]
+data_files_names = [f"tests/e2e/data/{i}.dat" for i in range(1, 16)]
 
 
-def check_output_data(n_test, stdout_data, correct_output):
+def check_output_data(n_test, stdout_data, correct_output, exec_time):
         try:
                 if stdout_data == correct_output:
-                        print(TERMINAL_COLORS.OKGREEN              + \
-                                f"Test {n_test} Passed. "          + \
-                                f"File {data_files_names[n_test]}" + \
+                        print(TERMINAL_COLORS.OKGREEN                   + \
+                                f"Test {n_test} Passed. "               + \
+                                f"File {data_files_names[n_test]}"      + \
+                                f"Execution time: {exec_time:.03f} sec" + \
                         TERMINAL_COLORS.DEFAULT
                         )
                 else:
                         print(TERMINAL_COLORS.ERROR                   + \
-                                f"Test {n_test} NOT Passed\n"         + \
-                                f"Hits: \n\t outputted={stdout_data}" + \
+                                f"Test {n_test} NOT Passed. "         + \
+                                f"File {data_files_names[n_test]}\n"  + \
+                                f"Output={stdout_data}\n"             + \
                                 f"\n\t right={correct_output}"        + \
                         TERMINAL_COLORS.DEFAULT
                         )
@@ -70,20 +73,22 @@ def run_e2e_test(app2run, input_data):
         for data in input_data:
                 data_str += str(data) + " "
 
+        start_time = time.time()
         stdout_data = pipe.communicate(input=bytes(data_str, "UTF-8"))
+        exec_time = time.time() - start_time
 
-        return stdout_data[0].decode()
+        return stdout_data[0].decode(), exec_time
         
 
 def run_e2e_tests(app_name):
         for (n_test, file_name) in zip(range(len(data_files_names)), data_files_names):
                 data, correct_output = parse_data_file(file_name)
 
-                output_data = run_e2e_test(app_name, data)
+                output_data, exec_time = run_e2e_test(app_name, data)
                 output_data = output_data[:len(output_data) - 2]
                 
                 correct_str = ' '.join(str(int(elem)) for elem in correct_output)
-                check_output_data(n_test, output_data, correct_str)
+                check_output_data(n_test, output_data, correct_str, exec_time)
 
 
 if __name__ == "__main__":

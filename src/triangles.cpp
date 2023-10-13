@@ -61,6 +61,7 @@ find_triangles_intersections (vector<pair<triangle_t, size_t>> &triangles_indexe
         
         for (auto it = triangles_indexes.cbegin(); it != triangles_indexes.cend() - 1; it++) {
                 for (auto jt = it + 1; jt != triangles_indexes.cend(); jt++) {
+                        // std::cout << "here111\n";
                         if (triangles_intersect(it->first, jt->first)) {
                                 intersected_triangles_indexes.push_back(pair<int, int>(it->second, jt->second));
                         }

@@ -10,7 +10,7 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 set(UNITESTS "unitests")
-set(UNITESTS_SRC unitests/line.cpp  unitests/intersection.cpp unitests/point_in_triangle.cpp 
+set(UNITESTS_SRC unitests/line.cpp  unitests/intersection.cpp unitests/point_in_triangle.cpp unitests/plane.cpp 
                  unitests/point.cpp unitests/triangle.cpp     unitests/vector.cpp unitests/intersections_octree.cpp)
 
 set(TEST_SRC_LIST ${UNITESTS_SRC} ../src/geometry.cpp ../src/octree.cpp ../src/ui.cpp ../src/triangles.cpp ../utils/compare.cpp)

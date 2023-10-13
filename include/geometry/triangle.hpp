@@ -66,6 +66,16 @@ namespace geometry
 
                         plane_t get_plane () const { return plane; }
 
+                        bool is_equal (const triangle_t &triangle_) const
+                        {
+                                if (vertex_a.is_equal2(triangle_.get_vertex_a()) &&
+                                    vertex_b.is_equal2(triangle_.get_vertex_b()) &&
+                                    vertex_c.is_equal2(triangle_.get_vertex_c()))
+                                    return true;
+                                
+                                return false;
+                        }
+
                 private:
                         point_t vertex_a;
                         point_t vertex_b;
