@@ -97,6 +97,40 @@ namespace geometry
                                 return false;
                         }
 
+                        bool line_intersect_in_triangles(const line_t &line_, triangle_t &triangle_)
+                        {
+                                bool intersect = false;
+
+                                point_t point = plane.find_line_plane_intersection(line_);
+                                if (point.is_valid()) {
+                                        intersect = triangle_.is_inside(point) &&
+                                                              is_inside(point);
+
+                                } else if (plane.line_is_in(line_)) {
+                                        if (is_equal(triangle_)) {
+                                                return true;
+                                        }
+                                        intersect = line_intersect_triangles(line_, triangle_);
+                                }
+
+                                return intersect;
+                        }
+
+                        bool intersects (triangle_t &triangle_)
+                        {
+                                bool intersect = line_intersect_in_triangles(triangle_.get_line_a_b(), triangle_);
+                                if (intersect)
+                                        return intersect;
+
+                                intersect = line_intersect_in_triangles(triangle_.get_line_b_c(), triangle_);
+                                if (intersect)
+                                        return intersect;
+
+                                intersect = line_intersect_in_triangles(triangle_.get_line_c_a(), triangle_);
+                                
+                                return intersect;
+                        }
+
                 private:
                         point_t vertex_a;
                         point_t vertex_b;
@@ -152,6 +186,30 @@ namespace geometry
                         {
                                 distance_t0  = dot_ab_ac * d - dot_ab_ab * e;
                                 distance_t0 *= distance_inv_s0_t0_divisor;
+                        }
+
+                        bool line_intersect_triangles (const line_t &line_, triangle_t  &triangle_)
+                        {
+                                bool intersect = false;
+
+                                point_t point = line_.intersects_line_at(triangle_.get_line_a_b());
+                                if (point.is_valid())
+                                        intersect = is_inside(point) &&
+                                                triangle_.is_inside(point);
+                                if (!intersect) {
+                                        point = line_.intersects_line_at(triangle_.get_line_b_c());
+                                        if (point.is_valid())
+                                                intersect = is_inside(point) &&
+                                                        triangle_.is_inside(point);
+                                }
+                                if (!intersect) {
+                                        point = line_.intersects_line_at(triangle_.get_line_c_a());
+                                        if (point.is_valid())
+                                                intersect = is_inside(point) &&
+                                                        triangle_.is_inside(point);
+                                }
+
+                                return intersect;
                         }
 
         };

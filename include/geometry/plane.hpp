@@ -84,7 +84,7 @@ namespace geometry
                                           << D << " = 0\n";
                         }
 
-                        double find_line_plane_intersection_param (const line_t &line_) const
+                        point_t find_line_plane_intersection (const line_t &line_) const
                         {
                                 double numerator   = - (A * line_.get_x0() + 
                                                         B * line_.get_y0() + 
@@ -95,7 +95,20 @@ namespace geometry
                                                      B * line_.get_y_coeff() + 
                                                      C * line_.get_z_coeff();
 
-                                return numerator / denominator;
+                                return line_.get_point_on_line(numerator / denominator);
+                        }
+
+                        bool line_is_in (const line_t &line) const
+                        {
+                                point_t point1 = line.get_point_on_line(0);
+                                point_t point2 = line.get_point_on_line(1);
+
+                                if (is_equal(plane_equation_value(point1.x, point1.y, point1.z), 0) &&
+                                    is_equal(plane_equation_value(point2.x, point2.y, point2.z), 0)) {
+                                        return true;
+                                }
+
+                                return false;
                         }
 
                 private:
