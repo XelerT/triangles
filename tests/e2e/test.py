@@ -15,7 +15,7 @@ class TERMINAL_COLORS:
         UNDERLINE = '\033[4m'
 
 
-data_files_names = [f"tests/e2e/data/{i}.dat" for i in range(1, 16)]
+data_files_names = [f"../tests/e2e/data/{i}.dat" for i in range(1, 16)]
 
 def check_output_data(n_test, stdout_data, correct_output, exec_time):
         try:
