@@ -10,7 +10,6 @@ namespace geometry
         class line_t                    // set parametrically
         {
                 private:
-                        // line<double, 3>
                         double x_coeff = NAN;
                         double x0      = NAN;
 

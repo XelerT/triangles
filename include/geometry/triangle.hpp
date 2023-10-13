@@ -37,6 +37,10 @@ namespace geometry
                                 line_c_a.set(segment_c_a, vertex_c);
 
                                 plane.set(vertex_a, segment_a_b, segment_a_c);
+
+                                dot_ab_ab = segment_a_b.scalar_product(segment_a_b);
+                                dot_ab_ac = segment_a_b.scalar_product(segment_a_c);
+                                dot_ac_ac = segment_a_c.scalar_product(segment_a_c);
                         };
 
                         void print () const 
@@ -66,12 +70,29 @@ namespace geometry
 
                         plane_t get_plane () const { return plane; }
 
+                        double get_dot_ab_ab () const { return dot_ab_ab; }
+                        double get_dot_ab_ac () const { return dot_ab_ac; }
+                        double get_dot_ac_ac () const { return dot_ac_ac; }
+
                         bool is_equal (const triangle_t &triangle_) const
                         {
                                 if (vertex_a.is_equal2(triangle_.get_vertex_a()) &&
                                     vertex_b.is_equal2(triangle_.get_vertex_b()) &&
                                     vertex_c.is_equal2(triangle_.get_vertex_c()))
                                     return true;
+                                
+                                return false;
+                        }
+
+                        bool is_inside (const point_t &point_)
+                        {
+                                calculate_distance2(point_);
+                                double s0_t0_sum = distance_s0 + distance_t0;
+                                
+                                if (is_equal_lower(s0_t0_sum, 1))
+                                        if (is_equal_greater(distance_s0, 0))
+                                                if (is_equal_greater(distance_t0, 0))
+                                                        return true;
                                 
                                 return false;
                         }
@@ -91,6 +112,48 @@ namespace geometry
                         line_t line_c_a;
 
                         plane_t plane;
+
+                        double dot_ab_ab;
+                        double dot_ab_ac;
+                        double dot_ac_ac;
+
+                        double distance_s0 = NAN;
+                        double distance_t0 = NAN;
+                        double distance_inv_s0_t0_divisor = NAN;
+
+                        void calculate_distance2 (const point_t &point_)
+                        {
+                                // if (!point_.is_valid())
+                                //         throw std::runtime_error("Point has invalid coordinates"                \
+                                //                                  " to calculate distance to triangle.");
+
+                                vector_t vec_d (point_, vertex_a);
+
+                                double distance_d = segment_a_b.scalar_product(vec_d);
+                                double distance_e = segment_a_c.scalar_product(vec_d);
+
+                                calculate_distance_inv_s0_t0_divisor();
+                                calculate_distance_s0(distance_e, distance_d);
+                                calculate_distance_t0(distance_e, distance_d);                                
+                        };
+
+                        void calculate_distance_inv_s0_t0_divisor ()
+                        {
+                                distance_inv_s0_t0_divisor = 1 / (dot_ab_ab * dot_ac_ac - dot_ab_ac * dot_ab_ac);
+                        }
+
+                        void calculate_distance_s0 (double e, double d)
+                        {
+                                distance_s0  = dot_ab_ac * e - dot_ac_ac * d;
+                                distance_s0 *= distance_inv_s0_t0_divisor;
+                        }
+
+                        void calculate_distance_t0 (double e, double d)
+                        {
+                                distance_t0  = dot_ab_ac * d - dot_ab_ab * e;
+                                distance_t0 *= distance_inv_s0_t0_divisor;
+                        }
+
         };
 }
 

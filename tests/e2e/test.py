@@ -17,14 +17,13 @@ class TERMINAL_COLORS:
 
 data_files_names = [f"tests/e2e/data/{i}.dat" for i in range(1, 16)]
 
-
 def check_output_data(n_test, stdout_data, correct_output, exec_time):
         try:
                 if stdout_data == correct_output:
-                        print(TERMINAL_COLORS.OKGREEN                   + \
-                                f"Test {n_test} Passed. "               + \
-                                f"File {data_files_names[n_test]}"      + \
-                                f"Execution time: {exec_time:.03f} sec" + \
+                        print(TERMINAL_COLORS.OKGREEN                    + \
+                                f"Test {n_test:3} Passed. "              + \
+                                f"File {data_files_names[n_test]} "      + \
+                                f"Execution time: {exec_time:.03f} sec"  + \
                         TERMINAL_COLORS.DEFAULT
                         )
                 else:

@@ -9,9 +9,7 @@ namespace geometry
 {
         class point_t
         {
-                public:
-                        char name[MAX_POINT_NAME_LENGTH] = {};
-                        
+                public:                        
                         double x = NAN;
                         double y = NAN;
                         double z = NAN;
@@ -26,7 +24,7 @@ namespace geometry
 
                         void print () const
                         {
-                                std::cout << "point " << name << " is ("  <<
+                                std::cout << "point " << " is ("  <<
                                                          x << ", " <<  y   <<
                                                          ", " << z << ")\n";
                         }

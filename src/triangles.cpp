@@ -40,13 +40,10 @@ find_triangles_intersections (vector<triangle_t> &triangles)
 
         int i = 0;
         
-        for (auto it = triangles.cbegin(); it != triangles.cend() - 1; it++, i++) {
+        for (auto it = triangles.begin(); it != triangles.end() - 1; it++, i++) {
                 int j = i + 1;
-                for (auto jt = it + 1; jt != triangles.cend(); jt++, j++) {
+                for (auto jt = it + 1; jt != triangles.end(); jt++, j++) {
                         if (triangles_intersect(*it, *jt)) {
-                                // it->get_vertex_a().print();
-                                // jt->get_vertex_a().print();
-
                                 intersected_triangles_indexes.push_back(pair<int, int>(i, j));
                         }
                 }
@@ -59,9 +56,8 @@ find_triangles_intersections (vector<pair<triangle_t, size_t>> &triangles_indexe
 {
         vector<pair<int, int>> intersected_triangles_indexes {};
         
-        for (auto it = triangles_indexes.cbegin(); it != triangles_indexes.cend() - 1; it++) {
-                for (auto jt = it + 1; jt != triangles_indexes.cend(); jt++) {
-                        // std::cout << "here111\n";
+        for (auto it = triangles_indexes.begin(); it != triangles_indexes.end() - 1; it++) {
+                for (auto jt = it + 1; jt != triangles_indexes.end(); jt++) {
                         if (triangles_intersect(it->first, jt->first)) {
                                 intersected_triangles_indexes.push_back(pair<int, int>(it->second, jt->second));
                         }

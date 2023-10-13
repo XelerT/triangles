@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "../utils.hpp"
 #include "point.hpp"
 
@@ -18,9 +20,7 @@ namespace geometry
                                 // if (!begin_.is_valid() || !end_.is_valid())
                                 //         throw std::runtime_error("Point has invalid coordinates to create vector.");
 
-                                x = end_.x - begin_.x;
-                                y = end_.y - begin_.y;
-                                z = end_.z - begin_.z;
+                                set(begin_, end_);
                         };
                         vector_t (const double x_, const double y_, const double z_)
                         {
