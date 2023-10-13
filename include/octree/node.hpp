@@ -236,13 +236,10 @@ namespace octree
                                                         }
                                                 }
                                         }
-                                        for (auto it = elements.begin(); it != elements.end(); it++) {
-                                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
-                                                        if (children[i])
-                                                                children[i]->find_intersection_with_offsprings(it, intersected_triangles_indexes, 
+                                        for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                                if (children[i])
+                                                        children[i]->find_intersection_with_offsprings(elements, intersected_triangles_indexes, 
                                                                                                                    find_intersection);
-                                        // for (auto elem : elements)
-                                        }
                                 }
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                         if (children[i])
@@ -250,23 +247,19 @@ namespace octree
                         }
                         
                         template <typename F>
-                        void find_intersection_with_offsprings (const std::vector<std::pair<geometry::triangle_t, size_t>>::iterator &parent_it,
+                        void find_intersection_with_offsprings (const std::vector<std::pair<geometry::triangle_t, size_t>> &parents,
                                                                       std::vector<std::pair<int, int>> &intersected_triangles_indexes, 
                                                                       F find_intersection)
                         {
-                                // for (auto it = elements.begin(); it != elements.end(); it++) {
-                                //         if (find_intersection(parent_it->first, it->first)) {
-                                //                 intersected_triangles_indexes.push_back({parent_it->second, it->second});
-                                //         }
-                                // }
-                                for (auto elem : elements)
-                                        if (find_intersection(parent_it->first, elem.first)) {
-                                                intersected_triangles_indexes.push_back({parent_it->second, elem.second});
-                                        }
+                                for (auto parent : parents)
+                                        for (auto elem : elements)
+                                                if (find_intersection(parent.first, elem.first))
+                                                        intersected_triangles_indexes.push_back({parent.second, elem.second});
+                
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                         if (children[i])
-                                                children[i]->find_intersection_with_offsprings(parent_it, intersected_triangles_indexes, 
-                                                                                                          find_intersection);
+                                                children[i]->find_intersection_with_offsprings(parents, intersected_triangles_indexes, 
+                                                                                                       find_intersection);
                         }
 
                         void print_tabs (const size_t n_tabs2print) const
