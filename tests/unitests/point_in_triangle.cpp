@@ -45,9 +45,9 @@ TEST_F (triangle1_test, inside_triangle)
         point_t point2{1.99, 0.88, 1.30};
         point_t point3{1.96, 1.94, 0.48};
 
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point1));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point2));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point3));
+        ASSERT_TRUE(triangle.is_inside(point1));
+        ASSERT_TRUE(triangle.is_inside(point2));
+        ASSERT_TRUE(triangle.is_inside(point3));
 }
 
 TEST_F (triangle1_test, outside_triangle)
@@ -56,9 +56,9 @@ TEST_F (triangle1_test, outside_triangle)
         point_t point2{2.99, -3.28, 0};
         point_t point3{6.29, 0, 0};
 
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point1));
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point2));
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point3));
+        ASSERT_FALSE(triangle.is_inside(point1));
+        ASSERT_FALSE(triangle.is_inside(point2));
+        ASSERT_FALSE(triangle.is_inside(point3));
 }
 
 TEST_F (triangle2_test, inside_triangle)
@@ -67,9 +67,9 @@ TEST_F (triangle2_test, inside_triangle)
         point_t point2{-3.23, 5.4, 0};
         point_t point3{-1.11, 1.68, 0};
 
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point1));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point2));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point3));
+        ASSERT_TRUE(triangle.is_inside(point1));
+        ASSERT_TRUE(triangle.is_inside(point2));
+        ASSERT_TRUE(triangle.is_inside(point3));
 }
 
 TEST_F (triangle3_test, inside_triangle)
@@ -78,9 +78,9 @@ TEST_F (triangle3_test, inside_triangle)
         point_t point2{-6.02, -5.03, 0.86};
         point_t point3{-0.65, -0.54, 4.43};
 
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point1));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point2));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point3));
+        ASSERT_TRUE(triangle.is_inside(point1));
+        ASSERT_TRUE(triangle.is_inside(point2));
+        ASSERT_TRUE(triangle.is_inside(point3));
 }
 
 TEST_F (triangle3_test, on_triangle_boundary)
@@ -89,9 +89,9 @@ TEST_F (triangle3_test, on_triangle_boundary)
         point_t point2{-3.03, -2.53, 0.00};
         point_t point3{-5.15, -4.30, 0.00};
 
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point1));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point2));
-        ASSERT_TRUE(point_is_inside_triangle(triangle, point3));
+        ASSERT_TRUE(triangle.is_inside(point1));
+        ASSERT_TRUE(triangle.is_inside(point2));
+        ASSERT_TRUE(triangle.is_inside(point3));
 }
 
 TEST_F (triangle3_test, outside_boundary)
@@ -100,7 +100,7 @@ TEST_F (triangle3_test, outside_boundary)
         point_t point2{8.26, 0.00, 0.00};
         point_t point3{0, 0, 8.41};
 
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point1));
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point2));
-        ASSERT_FALSE(point_is_inside_triangle(triangle, point3));
+        ASSERT_FALSE(triangle.is_inside(point1));
+        ASSERT_FALSE(triangle.is_inside(point2));
+        ASSERT_FALSE(triangle.is_inside(point3));
 }

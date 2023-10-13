@@ -69,11 +69,11 @@ namespace geometry
                                 reduce_zero_plane_coeffs();
                         }
 
-                        double plane_equation_value (const double x,
-                                                     const double y,
-                                                     const double z) const
+                        double plane_equation_value (const double x_,
+                                                     const double y_,
+                                                     const double z_) const
                         {
-                                return A * x + B * y + C * z + D;
+                                return A * x_ + B * y_ + C * z_ + D;
                         }
 
                         void print () const
@@ -98,15 +98,14 @@ namespace geometry
                                 return line_.get_point_on_line(numerator / denominator);
                         }
 
-                        bool line_is_in (const line_t &line) const
+                        bool line_is_in (const line_t &line_) const
                         {
-                                point_t point1 = line.get_point_on_line(0);
-                                point_t point2 = line.get_point_on_line(1);
+                                point_t point1 = line_.get_point_on_line(0);
+                                point_t point2 = line_.get_point_on_line(1);
 
                                 if (is_equal(plane_equation_value(point1.x, point1.y, point1.z), 0) &&
-                                    is_equal(plane_equation_value(point2.x, point2.y, point2.z), 0)) {
+                                    is_equal(plane_equation_value(point2.x, point2.y, point2.z), 0))
                                         return true;
-                                }
 
                                 return false;
                         }
@@ -122,13 +121,13 @@ namespace geometry
                                         B = 1;
                         }
 
-                        bool are_zero_coeffs (const double coeff1,
-                                              const double coeff2,
-                                              const double coeff3) 
+                        bool are_zero_coeffs (const double coeff1_,
+                                              const double coeff2_,
+                                              const double coeff3_) 
                         {
-                                if (is_equal(coeff1, 0) &&
-                                    is_equal(coeff2, 0) &&
-                                    is_equal(coeff3, 0)
+                                if (is_equal(coeff1_, 0) &&
+                                    is_equal(coeff2_, 0) &&
+                                    is_equal(coeff3_, 0)
                                     )
                                         return true;
                                 

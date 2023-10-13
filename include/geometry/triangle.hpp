@@ -176,15 +176,15 @@ namespace geometry
                                 distance_inv_s0_t0_divisor = 1 / (dot_ab_ab * dot_ac_ac - dot_ab_ac * dot_ab_ac);
                         }
 
-                        void calculate_distance_s0 (double e, double d)
+                        void calculate_distance_s0 (double e_, double d_)
                         {
-                                distance_s0  = dot_ab_ac * e - dot_ac_ac * d;
+                                distance_s0  = dot_ab_ac * e_ - dot_ac_ac * d_;
                                 distance_s0 *= distance_inv_s0_t0_divisor;
                         }
 
-                        void calculate_distance_t0 (double e, double d)
+                        void calculate_distance_t0 (double e_, double d_)
                         {
-                                distance_t0  = dot_ab_ac * d - dot_ab_ab * e;
+                                distance_t0  = dot_ab_ac * d_ - dot_ab_ab * e_;
                                 distance_t0 *= distance_inv_s0_t0_divisor;
                         }
 
@@ -194,24 +194,23 @@ namespace geometry
 
                                 point_t point = line_.intersects_line_at(triangle_.get_line_a_b());
                                 if (point.is_valid())
-                                        intersect = is_inside(point) &&
-                                                triangle_.is_inside(point);
+                                        intersect = triangle_.is_inside(point) &&
+                                                              is_inside(point);
                                 if (!intersect) {
                                         point = line_.intersects_line_at(triangle_.get_line_b_c());
                                         if (point.is_valid())
-                                                intersect = is_inside(point) &&
-                                                        triangle_.is_inside(point);
+                                                intersect = triangle_.is_inside(point) &&
+                                                                      is_inside(point);
                                 }
                                 if (!intersect) {
                                         point = line_.intersects_line_at(triangle_.get_line_c_a());
                                         if (point.is_valid())
-                                                intersect = is_inside(point) &&
-                                                        triangle_.is_inside(point);
+                                                intersect = triangle_.is_inside(point) &&
+                                                                      is_inside(point);
                                 }
 
                                 return intersect;
                         }
-
         };
 }
 
