@@ -69,7 +69,7 @@ class octree_triangles_intersection3 : public testing::Test {
                 vector<triangle_t> triangles {triangle1, triangle2, triangle3, triangle4};
                 tree_t<pair<triangle_t, size_t>> tree {min, max};
                 vector<pair<int, int>> inters { pair<int, int> {0, 1},
-                                                pair<int, int> {1, 2}};
+                                                pair<int, int> {2, 1}};
 
                 void SetUp() {insert_triangles(tree, triangles);}
                 void TearDown() {}
