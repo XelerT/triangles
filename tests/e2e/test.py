@@ -31,7 +31,7 @@ def check_output_data(n_test, stdout_data, correct_output, exec_time):
                                 f"Test {n_test} NOT Passed. "         + \
                                 f"File {data_files_names[n_test]}\n"  + \
                                 f"Output={stdout_data}\n"             + \
-                                f"\n\t right={correct_output}"        + \
+                                f"\nRight={correct_output}\n"           + \
                         TERMINAL_COLORS.DEFAULT
                         )
         except:
@@ -84,9 +84,9 @@ def run_e2e_tests(app_name):
                 data, correct_output = parse_data_file(file_name)
 
                 output_data, exec_time = run_e2e_test(app_name, data)
-                output_data = output_data[:len(output_data) - 2]
+                output_data = output_data[:len(output_data) - 1]
                 
-                correct_str = ' '.join(str(int(elem)) for elem in correct_output)
+                correct_str = '\n'.join(str(int(elem)) for elem in correct_output)
                 check_output_data(n_test, output_data, correct_str, exec_time)
 
 
