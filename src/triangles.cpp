@@ -43,7 +43,7 @@ find_triangles_intersections (vector<triangle_t> &triangles)
         for (auto it = triangles.begin(); it != triangles.end() - 1; it++, i++) {
                 int j = i + 1;
                 for (auto jt = it + 1; jt != triangles.end(); jt++, j++) {
-                        if (triangles_intersect(*it, *jt)) {
+                        if (it->intersects(*jt)) {
                                 intersected_triangles_indexes.push_back(pair<int, int>(i, j));
                         }
                 }
@@ -58,7 +58,7 @@ find_triangles_intersections (vector<pair<triangle_t, size_t>> &triangles_indexe
         
         for (auto it = triangles_indexes.begin(); it != triangles_indexes.end() - 1; it++) {
                 for (auto jt = it + 1; jt != triangles_indexes.end(); jt++) {
-                        if (triangles_intersect(it->first, jt->first)) {
+                        if (it->first.intersects(jt->first)) {
                                 intersected_triangles_indexes.push_back(pair<int, int>(it->second, jt->second));
                         }
                 }
@@ -67,11 +67,11 @@ find_triangles_intersections (vector<pair<triangle_t, size_t>> &triangles_indexe
 }
 
 vector<pair<int, int>>
-find_triangles_intersections (octree::tree_t<std::pair<geometry::triangle_t, size_t>> &tree)
+find_triangles_intersections (octree::tree_t<pair<triangle_t, size_t>> &tree)
 {
         vector<pair<int, int>> intersected_triangles_indexes {};
 
-        tree.find_elems_intersections_indexes(intersected_triangles_indexes, triangles_intersect);
+        tree.find_elems_intersections_indexes(intersected_triangles_indexes);
 
         return intersected_triangles_indexes;
 }

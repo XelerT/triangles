@@ -224,42 +224,36 @@ namespace octree
                                 divided_elements.push_back(elements);
                         }
 
-                        template <typename F>
-                        void find_elements_intersections_indexes (std::vector<std::pair<int, int>> &intersected_triangles_indexes,
-                                                                  F find_intersection)
+                        void find_elements_intersections_indexes (std::vector<std::pair<int, int>> &intersected_triangles_indexes)
                         {
                                 if (elements.size()) {
                                         for (auto it = elements.begin(); it != elements.end() - 1; it++) {
                                                 for (auto jt = it + 1; jt != elements.end(); jt++) {
-                                                        if (find_intersection(it->first, jt->first)) {
+                                                        if (it->first.intersects(jt->first)) {
                                                                 intersected_triangles_indexes.push_back({it->second, jt->second});
                                                         }
                                                 }
                                         }
                                         for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                                 if (children[i])
-                                                        children[i]->find_intersection_with_offsprings(elements, intersected_triangles_indexes, 
-                                                                                                                 find_intersection);
+                                                        children[i]->find_intersection_with_offsprings(elements, intersected_triangles_indexes);
                                 }
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                         if (children[i])
-                                                children[i]->find_elements_intersections_indexes(intersected_triangles_indexes, find_intersection);
+                                                children[i]->find_elements_intersections_indexes(intersected_triangles_indexes);
                         }
                         
-                        template <typename F>
                         void find_intersection_with_offsprings (std::vector<std::pair<geometry::triangle_t, size_t>> &parents,
-                                                                std::vector<std::pair<int, int>> &intersected_triangles_indexes, 
-                                                                F find_intersection)
+                                                                std::vector<std::pair<int, int>> &intersected_triangles_indexes)
                         {
                                 for (auto &parent : parents)
                                         for (auto &elem : elements)
-                                                if (find_intersection(parent.first, elem.first))
+                                                if (parent.first.intersects(elem.first))
                                                         intersected_triangles_indexes.push_back({parent.second, elem.second});
                 
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                         if (children[i])
-                                                children[i]->find_intersection_with_offsprings(parents, intersected_triangles_indexes, 
-                                                                                                        find_intersection);
+                                                children[i]->find_intersection_with_offsprings(parents, intersected_triangles_indexes);
                         }
 
                         void print_tabs (const size_t n_tabs2print) const

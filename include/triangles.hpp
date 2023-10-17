@@ -13,6 +13,12 @@ get_triangles (std::pair<size_t, std::vector<double>> &input);
 std::vector<std::pair<int, int>> 
 find_triangles_intersections (std::vector<geometry::triangle_t> &triangles);
 
+std::vector<std::pair<int, int>> 
+find_triangles_intersections (std::vector<std::pair<geometry::triangle_t, size_t>> &triangles_indexes);
+
+std::vector<std::pair<int, int>> 
+find_triangles_intersections (octree::tree_t<std::pair<geometry::triangle_t, size_t>> &tree);
+
 std::vector<int> 
 get_intersected_triangles_indexes (const std::vector<std::pair<int, int>> &paired_indexes);
 
@@ -23,6 +29,3 @@ find_extreme_points (const std::vector<double> &coordinates);
 
 void insert_triangles (octree::tree_t<std::pair<geometry::triangle_t, size_t>> &tree,
                        std::vector<geometry::triangle_t> &triangles);
-
-std::vector<std::pair<int, int>> 
-find_triangles_intersections (octree::tree_t<std::pair<geometry::triangle_t, size_t>> &tree);

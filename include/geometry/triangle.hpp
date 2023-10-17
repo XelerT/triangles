@@ -84,20 +84,20 @@ namespace geometry
                                 return false;
                         }
 
-                        bool is_inside (const point_t &point_)
-                        {
-                                calculate_distance2(point_);
-                                double s0_t0_sum = distance_s0 + distance_t0;
+                        bool is_inside (const point_t &point_) const
+                        {                                
+                                auto s0_t0 = calculate_distance_params2(point_);
+                                double s0_t0_sum = s0_t0.first + s0_t0.second;
                                 
                                 if (is_equal_lower(s0_t0_sum, 1))
-                                        if (is_equal_greater(distance_s0, 0))
-                                                if (is_equal_greater(distance_t0, 0))
+                                        if (is_equal_greater(s0_t0.first, 0))
+                                                if (is_equal_greater(s0_t0.second, 0))
                                                         return true;
                                 
                                 return false;
                         }
 
-                        bool line_intersect_in_triangles(const line_t &line_, triangle_t &triangle_)
+                        bool line_intersect_in_triangles (const line_t &line_, const triangle_t &triangle_) const
                         {
                                 bool intersect = false;
 
@@ -116,19 +116,20 @@ namespace geometry
                                 return intersect;
                         }
 
-                        bool intersects (triangle_t &triangle_)
+                        bool intersects (const triangle_t &triangle_) const
                         {
-                                bool intersect = line_intersect_in_triangles(triangle_.get_line_a_b(), triangle_);
-                                if (intersect)
-                                        return intersect;
+                                plane_t plane_ = triangle_.get_plane();
 
-                                intersect = line_intersect_in_triangles(triangle_.get_line_b_c(), triangle_);
-                                if (intersect)
-                                        return intersect;
+                                if (plane_.is_parallel2(plane))
+                                        return false;
 
-                                intersect = line_intersect_in_triangles(triangle_.get_line_c_a(), triangle_);
+                                if (in(triangle_))
+                                        return true;
+
+                                if (triangle_.in(*this))
+                                        return true;
                                 
-                                return intersect;
+                                return false;
                         }
 
                 private:
@@ -151,11 +152,8 @@ namespace geometry
                         double dot_ab_ac;
                         double dot_ac_ac;
 
-                        double distance_s0 = NAN;
-                        double distance_t0 = NAN;
-                        double distance_inv_s0_t0_divisor = NAN;
-
-                        void calculate_distance2 (const point_t &point_)
+                        std::pair<double, double>
+                        calculate_distance_params2 (const point_t &point_) const
                         {
                                 // if (!point_.is_valid())
                                 //         throw std::runtime_error("Point has invalid coordinates"                \
@@ -166,29 +164,31 @@ namespace geometry
                                 double distance_d = segment_a_b.scalar_product(vec_d);
                                 double distance_e = segment_a_c.scalar_product(vec_d);
 
-                                calculate_distance_inv_s0_t0_divisor();
-                                calculate_distance_s0(distance_e, distance_d);
-                                calculate_distance_t0(distance_e, distance_d);                                
+                                double distance_inv_s0_t0_divisor = calculate_distance_inv_s0_t0_divisor();
+                                double s0 = calculate_distance_s0(distance_e, distance_d, distance_inv_s0_t0_divisor);
+                                double t0 = calculate_distance_t0(distance_e, distance_d, distance_inv_s0_t0_divisor);
+
+                                return {s0, t0};                             
                         };
 
-                        void calculate_distance_inv_s0_t0_divisor ()
+                        double calculate_distance_inv_s0_t0_divisor () const
                         {
-                                distance_inv_s0_t0_divisor = 1 / (dot_ab_ab * dot_ac_ac - dot_ab_ac * dot_ab_ac);
+                                return 1 / (dot_ab_ab * dot_ac_ac - dot_ab_ac * dot_ab_ac);
                         }
 
-                        void calculate_distance_s0 (double e_, double d_)
+                        double calculate_distance_s0 (const double e_, const double d_,
+                                                      const double distance_inv_s0_t0_divisor) const
                         {
-                                distance_s0  = dot_ab_ac * e_ - dot_ac_ac * d_;
-                                distance_s0 *= distance_inv_s0_t0_divisor;
+                                return (dot_ab_ac * e_ - dot_ac_ac * d_) * distance_inv_s0_t0_divisor;
                         }
 
-                        void calculate_distance_t0 (double e_, double d_)
+                        double calculate_distance_t0 (double e_, double d_,
+                                                      const double distance_inv_s0_t0_divisor) const
                         {
-                                distance_t0  = dot_ab_ac * d_ - dot_ab_ab * e_;
-                                distance_t0 *= distance_inv_s0_t0_divisor;
+                                return (dot_ab_ac * d_ - dot_ab_ab * e_) * distance_inv_s0_t0_divisor;
                         }
 
-                        bool line_intersect_triangles (const line_t &line_, triangle_t  &triangle_)
+                        bool line_intersect_triangles (const line_t &line_, const triangle_t  &triangle_) const
                         {
                                 bool intersect = false;
 
@@ -211,6 +211,22 @@ namespace geometry
 
                                 return intersect;
                         }
+
+                        bool in (const triangle_t &triangle_) const
+                        {
+                                bool intersect = line_intersect_in_triangles(triangle_.get_line_a_b(), triangle_);
+                                if (intersect)
+                                        return intersect;
+
+                                intersect = line_intersect_in_triangles(triangle_.get_line_b_c(), triangle_);
+                                if (intersect)
+                                        return intersect;
+
+                                intersect = line_intersect_in_triangles(triangle_.get_line_c_a(), triangle_);
+                                
+                                return intersect;
+                        }
+
         };
 }
 
