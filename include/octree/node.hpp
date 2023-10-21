@@ -143,14 +143,40 @@ namespace octree
                         } 
                 }
 
+                void add_element (const T &element_)
+                {
+                        elements.push_back(element_);
+                }
+
+                void find_intersection_with_offsprings (std::vector<std::pair<geometry::triangle_t, size_t>> &parents,
+                                                        std::vector<std::pair<int, int>> &intersected_triangles_indexes)
+                {
+                        for (auto &parent : parents)
+                                for (auto &elem : elements)
+                                        if (parent.first.intersects(elem.first))
+                                                intersected_triangles_indexes.push_back({parent.second, elem.second});
+                
+                        for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                if (children[i])
+                                        children[i]->find_intersection_with_offsprings(parents, intersected_triangles_indexes);
+                }
+
+                void print_tabs (const size_t n_tabs2print) const
+                {
+                        for (size_t i = 0; i < n_tabs2print; i++)
+                                std::cout << "\t";
+                }
+
+
                 public:        
                         node_t () = default;
 
                         node_t (const geometry::point_t &middle_,
                                 const geometry::point_t &bottom_low_left_vertex_, 
                                 const geometry::point_t &upper_top_right_vertex_)
+                                : 
+                                middle(middle_)
                         {                                
-                                middle          = middle_;
                                 vertexes[SIXTH] = bottom_low_left_vertex_;
                                 vertexes[FIRST] = upper_top_right_vertex_;
                                 
@@ -192,11 +218,6 @@ namespace octree
                                                 delete children[i];
                         };
 
-                        void add_element (const T &element_)
-                        {
-                                elements.push_back(element_);
-                        }
-
                         template <typename F>
                         void insert (const T elem, F select_octangle)
                         {
@@ -227,42 +248,21 @@ namespace octree
                         void find_elements_intersections_indexes (std::vector<std::pair<int, int>> &intersected_triangles_indexes)
                         {
                                 if (elements.size()) {
-                                        for (auto it = elements.begin(); it != elements.end() - 1; it++) {
-                                                for (auto jt = it + 1; jt != elements.end(); jt++) {
-                                                        if (it->first.intersects(jt->first)) {
+                                        for (auto it = elements.begin(); it != elements.end() - 1; it++)
+                                                for (auto jt = it + 1; jt != elements.end(); jt++)
+                                                        if (it->first.intersects(jt->first))
                                                                 intersected_triangles_indexes.push_back({it->second, jt->second});
-                                                        }
-                                                }
-                                        }
+
                                         for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                                 if (children[i])
-                                                        children[i]->find_intersection_with_offsprings(elements, intersected_triangles_indexes);
+                                                        children[i]->find_intersection_with_offsprings(elements, 
+                                                                                                       intersected_triangles_indexes);
                                 }
                                 for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
                                         if (children[i])
                                                 children[i]->find_elements_intersections_indexes(intersected_triangles_indexes);
                         }
                         
-                        void find_intersection_with_offsprings (std::vector<std::pair<geometry::triangle_t, size_t>> &parents,
-                                                                std::vector<std::pair<int, int>> &intersected_triangles_indexes)
-                        {
-                                for (auto &parent : parents)
-                                        for (auto &elem : elements)
-                                                if (parent.first.intersects(elem.first))
-                                                        intersected_triangles_indexes.push_back({parent.second, elem.second});
-                
-                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
-                                        if (children[i])
-                                                children[i]->find_intersection_with_offsprings(parents, intersected_triangles_indexes);
-                        }
-
-                        void print_tabs (const size_t n_tabs2print) const
-                        {
-                                for (size_t i = 0; i < n_tabs2print; i++) {
-                                        std::cout << "\t";
-                                }
-                        }
-
                         void dump (const size_t layer) const
                         {
                                 print_tabs(layer);

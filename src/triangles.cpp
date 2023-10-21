@@ -82,9 +82,9 @@ get_intersected_triangles_indexes (const vector<pair<int, int>> &paired_indexes)
         vector<int> indexes = {};
 
         for (auto it = paired_indexes.begin(); it != paired_indexes.end(); it++) {
-                if (find(indexes, it->first) == indexes.end())
+                if (find(indexes.begin(), indexes.end(), it->first) == indexes.end())
                         indexes.push_back(it->first);
-                if (find(indexes, it->second) == indexes.end())
+                if (find(indexes.begin(), indexes.end(), it->second) == indexes.end())
                         indexes.push_back(it->second);
         }
 

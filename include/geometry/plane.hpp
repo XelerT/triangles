@@ -11,9 +11,9 @@ namespace geometry
         {
                 private:
                         double A = NAN;
-                        double B = 0;
-                        double C = 0;
-                        double D = 0;
+                        double B = NAN;
+                        double C = NAN;
+                        double D = NAN;
 
                         double proportional_coeff = 0;
 
@@ -33,13 +33,9 @@ namespace geometry
                         {
                                 set_proportional_coeff(src_);
 
-                                if (is_equal(B, src_.B * proportional_coeff) &&
-                                    is_equal(C, src_.C * proportional_coeff) &&
-                                    is_equal(D, src_.D * proportional_coeff)
-                                )
-                                        return true;
-                                
-                                return false;
+                                return is_equal(B, src_.B * proportional_coeff) &&
+                                       is_equal(C, src_.C * proportional_coeff) &&
+                                       is_equal(D, src_.D * proportional_coeff);
                         }
 
                         bool is_parallel2 (const plane_t &src_)
@@ -103,11 +99,8 @@ namespace geometry
                                 point_t point1 = line_.get_point_on_line(0);
                                 point_t point2 = line_.get_point_on_line(1);
 
-                                if (is_equal(plane_equation_value(point1.x, point1.y, point1.z), 0) &&
-                                    is_equal(plane_equation_value(point2.x, point2.y, point2.z), 0))
-                                        return true;
-
-                                return false;
+                                return is_equal(plane_equation_value(point1.x, point1.y, point1.z), 0) &&
+                                       is_equal(plane_equation_value(point2.x, point2.y, point2.z), 0);
                         }
 
                 private:
@@ -123,15 +116,11 @@ namespace geometry
 
                         bool are_zero_coeffs (const double coeff1_,
                                               const double coeff2_,
-                                              const double coeff3_) 
+                                              const double coeff3_) const
                         {
-                                if (is_equal(coeff1_, 0) &&
-                                    is_equal(coeff2_, 0) &&
-                                    is_equal(coeff3_, 0)
-                                    )
-                                        return true;
-                                
-                                return false;
+                                return is_equal(coeff1_, 0) &&
+                                       is_equal(coeff2_, 0) &&
+                                       is_equal(coeff3_, 0);
                         }
 
                         void set_proportional_coeff (const plane_t &src_)

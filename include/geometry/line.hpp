@@ -21,20 +21,14 @@ namespace geometry
 
                 public:
                         line_t () = default;
-                        line_t (const vector_t &guide_vector_, const point_t &line_point_)
-                        {
-                                // if (!line_point_.is_valid())
-                                //         throw std::runtime_error("Point has invalid coordinates to create line.");
-
-                                x_coeff = guide_vector_.x;
-                                x0      = line_point_.x;
-
-                                y_coeff = guide_vector_.y;
-                                y0      = line_point_.y;
-
-                                z_coeff = guide_vector_.z;
-                                z0      = line_point_.z;
-                        };
+                        line_t (const vector_t &guide_vector_, const point_t &line_point_) 
+                               : x_coeff(guide_vector_.x),
+                                 y_coeff(guide_vector_.y),
+                                 z_coeff(guide_vector_.z),
+                                 x0(line_point_.x),
+                                 y0(line_point_.y),
+                                 z0(line_point_.z)
+                                 {};
 
                         double get_x_value (const double parameter_) const
                         {
@@ -90,16 +84,12 @@ namespace geometry
 
                         bool line_equal2 (const line_t &line_) const
                         {
-                                if (is_equal(x0,      line_.x0)       &&
-                                    is_equal(y0,      line_.y0)       &&
-                                    is_equal(z0,      line_.z0)       &&
-                                    is_equal(x_coeff, line_.x_coeff)  &&
-                                    is_equal(y_coeff, line_.y_coeff)  &&
-                                    is_equal(z_coeff, line_.z_coeff)) {
-                                        
-                                        return true;
-                                    }
-                                return false;
+                                return is_equal(x0,      line_.x0)      &&
+                                       is_equal(y0,      line_.y0)      &&
+                                       is_equal(z0,      line_.z0)      &&
+                                       is_equal(x_coeff, line_.x_coeff) &&
+                                       is_equal(y_coeff, line_.y_coeff) &&
+                                       is_equal(z_coeff, line_.z_coeff);
                         }
 
                         point_t intersects_line_at (const line_t &line_) const 

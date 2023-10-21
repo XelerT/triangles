@@ -23,11 +23,8 @@ namespace geometry
                                 set(begin_, end_);
                         };
                         vector_t (const double x_, const double y_, const double z_)
-                        {
-                                x = x_;
-                                y = y_;
-                                z = z_;            
-                        }
+                                 : x(x_), y(y_), z(z_)
+                                 {};
 
                         void print () const
                         {

@@ -76,15 +76,12 @@ namespace geometry
 
                         bool is_equal (const triangle_t &triangle_) const
                         {
-                                if (vertex_a.is_equal2(triangle_.get_vertex_a()) &&
-                                    vertex_b.is_equal2(triangle_.get_vertex_b()) &&
-                                    vertex_c.is_equal2(triangle_.get_vertex_c()))
-                                    return true;
-                                
-                                return false;
+                                return vertex_a.is_equal2(triangle_.get_vertex_a()) &&
+                                       vertex_b.is_equal2(triangle_.get_vertex_b()) &&
+                                       vertex_c.is_equal2(triangle_.get_vertex_c());
                         }
 
-                        bool is_inside (const point_t &point_) const
+                        bool has_inside (const point_t &point_) const
                         {                                
                                 auto s0_t0 = calculate_distance_params2(point_);
                                 double s0_t0_sum = s0_t0.first + s0_t0.second;
@@ -103,8 +100,8 @@ namespace geometry
 
                                 point_t point = plane.find_line_plane_intersection(line_);
                                 if (point.is_valid()) {
-                                        intersect = triangle_.is_inside(point) &&
-                                                              is_inside(point);
+                                        intersect = triangle_.has_inside(point) &&
+                                                              has_inside(point);
 
                                 } else if (plane.line_is_in(line_)) {
                                         if (is_equal(triangle_)) {
@@ -194,19 +191,19 @@ namespace geometry
 
                                 point_t point = line_.intersects_line_at(triangle_.get_line_a_b());
                                 if (point.is_valid())
-                                        intersect = triangle_.is_inside(point) &&
-                                                              is_inside(point);
+                                        intersect = triangle_.has_inside(point) &&
+                                                              has_inside(point);
                                 if (!intersect) {
                                         point = line_.intersects_line_at(triangle_.get_line_b_c());
                                         if (point.is_valid())
-                                                intersect = triangle_.is_inside(point) &&
-                                                                      is_inside(point);
+                                                intersect = triangle_.has_inside(point) &&
+                                                                      has_inside(point);
                                 }
                                 if (!intersect) {
                                         point = line_.intersects_line_at(triangle_.get_line_c_a());
                                         if (point.is_valid())
-                                                intersect = triangle_.is_inside(point) &&
-                                                                      is_inside(point);
+                                                intersect = triangle_.has_inside(point) &&
+                                                                      has_inside(point);
                                 }
 
                                 return intersect;

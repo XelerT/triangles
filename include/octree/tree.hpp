@@ -22,8 +22,6 @@ namespace octree
                                 geometry::point_t middle {middle_x, middle_y, middle_z};
 
                                 root = new node_t<T>{middle, bottom_low_left_vertex_, upper_top_right_vertex_};
-                                if (!root)
-                                        throw std::runtime_error("Cannot create root!");
                         };
 
                         ~tree_t ()
