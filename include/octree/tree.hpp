@@ -11,6 +11,9 @@ namespace octree
 
                 node_t<T> *root = nullptr;
 
+                node_t<T>* get_root () const { return root; };
+                void null_root_ptr  () { root = nullptr; }
+
                 public:
                         tree_t (const geometry::point_t &bottom_low_left_vertex_, 
                                 const geometry::point_t &upper_top_right_vertex_)
@@ -28,6 +31,25 @@ namespace octree
                         {
                                 delete root;
                         };
+
+                        tree_t (const tree_t &tree_) = delete;
+
+                        tree_t (tree_t &&tree_)
+                        {
+                                size = tree_.get_size();
+                                root = tree_.get_root();
+
+                                tree_.null_root_ptr();   
+                        };
+
+                        tree_t& operator= (const tree_t &tree_) = delete;
+
+                        tree_t& operator= (tree_t &&tree_)
+                        {
+                                *this = tree_;             
+                        };
+
+                        size_t get_size () const { return size; };
 
                         template <typename F>
                         void insert (T elem, F select_octangle)

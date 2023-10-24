@@ -15,13 +15,12 @@ namespace octree
                 std::vector<T> elements {};
 
                 geometry::point_t middle {};
-                geometry::point_t vertexes [N_CUBE_VERTEXES] {};
+                std::vector<geometry::point_t> vertexes {N_CUBE_VERTEXES};
                 
                 geometry::point_t &up = vertexes[FIRST];
                 geometry::point_t &bt = vertexes[SIXTH];
 
-                node_t *children[N_OCTREE_CHILDREN] {};
-
+                std::vector<node_t*> children {N_OCTREE_CHILDREN};
 
                 double cube_side_length      = 0;
                 double cube_side_half_length = 0;
@@ -167,6 +166,8 @@ namespace octree
                                 std::cout << "\t";
                 }
 
+                void                 clear_children_vector () { children.clear(); }
+                std::vector<node_t*> get_children          () const { return children; }
 
                 public:        
                         node_t () = default;
@@ -181,12 +182,12 @@ namespace octree
                                 vertexes[FIRST] = upper_top_right_vertex_;
                                 
                                 calculate_cube_side_length();
-
+                                
                                 calculate_vertexes();
                         };
 
                         node_t (T elem_, const geometry::point_t &bottom_low_left_vertex_, 
-                                          const geometry::point_t &upper_top_right_vertex_) 
+                                         const geometry::point_t &upper_top_right_vertex_) 
                         {                                
                                 vertexes[SIXTH] = bottom_low_left_vertex_;
                                 vertexes[FIRST] = upper_top_right_vertex_;
@@ -218,6 +219,44 @@ namespace octree
                                                 delete children[i];
                         };
 
+                        node_t (const node_t &node_)
+                                : node_t(node_.get_middle(),
+                                         node_.get_bottom_low_left_vertex(),
+                                         node_.get_upper_top_right_vertex())
+                        {
+                                elements = node_.get_elements;
+                        };
+
+                        node_t (node_t &&node_)
+                        {
+                                elements = node_.get_elements();
+
+                                middle   = node_.get_middle();
+                                vertexes = node_.get_vertexes();
+                                children = node_.get_children();
+                                
+                                calculate_cube_side_length();       
+                        };
+
+                        node_t& operator= (const node_t &node_)
+                        {
+                                return *this = node_t {node_};
+                        };
+
+                        node_t& operator= (node_t &&node_)
+                        {
+                                *this = node_t {node_};
+
+                                children = node_.get_children();
+                                node_.clear_children_vector();                                        
+                        };
+
+                        geometry::point_t              get_middle                     () const { return middle; }
+                        geometry::point_t              get_get_bottom_low_left_vertex () const { return vertexes[SIXTH]; }
+                        geometry::point_t              get_upper_top_right_vertex     () const { return vertexes[FIRST]; }
+                        std::vector<T>                 get_elements                   () const { return elements; }
+                        std::vector<geometry::point_t> get_vertexes                   () const { return vertexes; }
+
                         template <typename F>
                         void insert (const T elem, F select_octangle)
                         {
@@ -237,11 +276,10 @@ namespace octree
 
                         void get_elements_by_node(std::vector<std::vector<T>> &divided_elements)
                         {                            
-                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++) {
-                                        if (children[i]) {
+                                for (uint8_t i = 0; i < N_OCTREE_CHILDREN; i++)
+                                        if (children[i])
                                                 children[i]->get_elements_by_node(divided_elements);
-                                        }
-                                }
+
                                 divided_elements.push_back(elements);
                         }
 

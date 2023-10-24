@@ -15,8 +15,6 @@ namespace geometry
                         double C = NAN;
                         double D = NAN;
 
-                        double proportional_coeff = 0;
-
                 public:
                         plane_t () = default;
                         plane_t (const point_t &point_, const vector_t &vector1_, const vector_t &vector2_)
@@ -29,18 +27,18 @@ namespace geometry
                         double get_C () const { return C; }
                         double get_D () const { return D; }
                 
-                        bool is_equal2 (const plane_t &src_) 
+                        bool is_equal2 (const plane_t &src_) const
                         {
-                                set_proportional_coeff(src_);
+                                double proportional_coeff = get_proportional_coeff(src_);
 
                                 return is_equal(B, src_.B * proportional_coeff) &&
                                        is_equal(C, src_.C * proportional_coeff) &&
                                        is_equal(D, src_.D * proportional_coeff);
                         }
 
-                        bool is_parallel2 (const plane_t &src_)
+                        bool is_parallel2 (const plane_t &src_) const
                         {
-                                set_proportional_coeff(src_);
+                                double proportional_coeff = get_proportional_coeff(src_);
                                 
                                 if (is_equal( B * proportional_coeff, src_.B) &&
                                     is_equal( C * proportional_coeff, src_.C) &&
@@ -123,14 +121,16 @@ namespace geometry
                                        is_equal(coeff3_, 0);
                         }
 
-                        void set_proportional_coeff (const plane_t &src_)
+                        double get_proportional_coeff (const plane_t &src_) const
                         {
                                 if (!is_equal(A, 0))
-                                        proportional_coeff = src_.A / A;
+                                        return src_.A / A;
                                 else if (!is_equal(B, 0))
-                                        proportional_coeff = src_.B / B;
+                                        return src_.B / B;
                                 else if (!is_equal(C, 0))
-                                        proportional_coeff = src_.C / C;
+                                        return src_.C / C;
+                                
+                                return NAN;
                         }
         };
 }
